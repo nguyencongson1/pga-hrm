@@ -1,0 +1,37 @@
+.sidebar_container{
+    width: 20%;
+    background-color: #fff;
+    height: 100vh;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    .gen_box{
+        padding: 30px 24px 30px 24px;   
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        .gen_title{
+            color: #006ADC;
+            font-size: 24px;
+            font-weight: 600px;
+            font-family: SVN-Sofia Pro;
+            line-height: 32.78px;
+            text-transform: capitalize;
+            margin-bottom: 10px;
+        }
+        .content_box{
+            background-color: rgb(241, 243, 245);
+            display: flex;
+            flex-direction: row;
+            gap:10px;
+            padding: 10px 30px;
+            border-radius: 10px;
+            div:first-child{
+                font-size: 16px;
+                font-family: SVN-Sofia Pro;
+                font-weight: 500;
+
+            }
+        }
+    }
+}

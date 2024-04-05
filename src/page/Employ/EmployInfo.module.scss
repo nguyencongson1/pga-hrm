@@ -1,3 +1,51 @@
 .employInfo_container{
-    background-color:#eaf0f5 ;
+    background-color:rgb(241, 243, 245) ;
+    .content_employ{
+        display: flex;
+        flex-direction: row;
+        .content_container{
+            width: 80%;
+            .content_box{
+                margin: 30px 46px 0px;
+                .title_box{
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-top: 10px;
+                    margin-bottom: 20px;    
+                    .input_custom{
+                        ::placeholder{
+                            font-size: 20px;
+                            font-weight: 600;
+                        }
+                        .search_icon{
+                            font-size: 20px;
+                        }
+                    }
+                    .title_name{
+                        font-family: "SVN-Sofia Pro Medium", "Public Sans", sans-serif;
+                        font-weight: 500;
+                        line-height: 1.19444;
+                        font-size: 36px;
+                    }
+                }
+                .table_box{
+                    background-color: rgb(251, 252, 253);
+                    .button{
+                        padding: 10px;
+                        display: flex;
+                        gap:10px;
+                        flex-direction: row-reverse;
+                        border-bottom: 1px solid #ccc ;
+                        border-bottom-left-radius:10px ;
+                        border-bottom-right-radius:10px ;
+                    }
+                    .content_table{
+                        
+                    }
+                }
+            }
+        }
+    }
 }
