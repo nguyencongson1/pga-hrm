@@ -1,0 +1,25 @@
+.header_container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 2px 2px 2px 1px #ccc;
+    margin-bottom: 2px;
+    padding: 2px;
+    .left_side{
+        display: flex;
+        flex-direction: row;
+        align-items: center ;
+        gap:20px;
+        .title_text{
+            font-size: 24px;
+            font-family: SVN-Sofia Pro;
+            font-weight: 600;
+        }
+    }
+    .right_side{
+        display: flex;
+        flex-direction: row;
+        align-items: center ;
+        gap: 16px;
+    }
+}
