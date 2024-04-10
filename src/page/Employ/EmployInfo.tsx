@@ -1,4 +1,4 @@
-import { SearchOutlined } from "@ant-design/icons";
+import { DeleteOutlined, SearchOutlined } from "@ant-design/icons";
 import { InputSearchGlobal } from "../../components/InputGlobal";
 import { Header } from "../../layout/Header/Header";
 import SideBar from "../../layout/SideBar/SideBar";
@@ -6,8 +6,11 @@ import s from "./EmployInfo.module.scss";
 import { ButtonGlobal } from "../../components/ButtonGlobal";
 import { ConfigProvider, Table, TableColumnsType } from "antd";
 import { IEmployManagement } from "../../interface";
+import { useNavigate } from "react-router-dom";
+import plusImg from "../../assets/images/file-plus.png";
 
 export default function EmployInfo() {
+  const navigate = useNavigate();
   const columns: TableColumnsType<IEmployManagement> = [
     {
       title: "Gender",
@@ -93,6 +96,9 @@ export default function EmployInfo() {
       place_birthday: "aasada",
     },
   ];
+  const handleAdd = () => {
+    navigate("/employ-action");
+  };
   const rowSelection = {
     onChange: (
       selectedRowKeys: React.Key[],
@@ -124,8 +130,12 @@ export default function EmployInfo() {
             </div>
             <div className={s.table_box}>
               <div className={s.button}>
-                <ButtonGlobal>Delete</ButtonGlobal>
-                <ButtonGlobal>Add</ButtonGlobal>
+                <ButtonGlobal className={s.delete_btn} disabled>
+                  <DeleteOutlined /> Delete
+                </ButtonGlobal>
+                <ButtonGlobal className={s.add_btn} onClick={handleAdd}>
+                  <img src={plusImg} /> Add
+                </ButtonGlobal>
               </div>
               <div className={s.content_table}>
                 <ConfigProvider
@@ -144,6 +154,7 @@ export default function EmployInfo() {
                     rowSelection={rowSelection}
                     className={s.table_employ}
                     rowClassName={s.row_employ}
+                    scroll={{ x: "1200px" }}
                   />
                 </ConfigProvider>
               </div>

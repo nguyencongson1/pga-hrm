@@ -1,10 +1,10 @@
 .employInfo_container{
-    background-color:rgb(241, 243, 245) ;
+    background-color:rgb(241, 243, 245);
     .content_employ{
         display: flex;
         flex-direction: row;
         .content_container{
-            width: 80%;
+            width: 74%;
             .content_box{
                 margin: 30px 46px 0px;
                 .title_box{
@@ -30,7 +30,7 @@
                         font-size: 36px;
                     }
                 }
-                .table_box{
+                .table_box{ 
                     background-color: rgb(251, 252, 253);
                     .button{
                         padding: 10px;
@@ -40,6 +40,19 @@
                         border-bottom: 1px solid #ccc ;
                         border-bottom-left-radius:10px ;
                         border-bottom-right-radius:10px ;
+                        .delete_btn{
+                            // background-color: rgb(255, 239, 239);
+                            // color: rgb(229, 72, 77);;
+                        }
+                        .add_btn{
+                            display: flex;
+                            flex-direction: row;
+                            justify-content: center;
+                            align-items: center;
+                            gap:2px;
+                            background-color: rgb(237, 246, 255);
+                            color: rgb(0, 145, 255);
+                        }
                     }
                     .content_table{
                         
