@@ -25,13 +25,24 @@ export default function EmInfo() {
           <Form
             onFinish={() => onsubmit}
             className={s.form_eminfo}
-            labelCol={{ span: 9 }}
+            labelCol={{ span: 10 }}
           >
             <Space direction="vertical">
-              <Form.Item label="NIK" name="nik" labelAlign="left">
+              <Form.Item
+                label="NIK"
+                name="nik"
+                labelAlign="left"
+                className={s.label_form}
+              >
                 <InputSearchGlobal width={240} />
               </Form.Item>
-              <Form.Item label="Name" name="name" labelAlign="left" required>
+              <Form.Item
+                label="Name"
+                name="name"
+                labelAlign="left"
+                required
+                className={s.label_form}
+              >
                 <InputSearchGlobal width={240} />
               </Form.Item>
               <Form.Item
@@ -39,6 +50,7 @@ export default function EmInfo() {
                 name="gender"
                 labelAlign="left"
                 required
+                className={s.label_form}
               >
                 <SelectGlobal width={240} />
               </Form.Item>
@@ -46,13 +58,25 @@ export default function EmInfo() {
                 label="Mother Name"
                 labelAlign="left"
                 name="mother_name"
+                className={s.label_form}
               >
                 <InputSearchGlobal width={240} />
               </Form.Item>
-              <Form.Item label="Date of birth" labelAlign="left" name="date">
+              <Form.Item
+                label="Date of birth"
+                labelAlign="left"
+                name="date"
+                className={s.label_form}
+              >
                 <DatePicker style={{ height: "46px" }} />
               </Form.Item>
-              <Form.Item label="KTP No." labelAlign="left" name="ktp" required>
+              <Form.Item
+                label="KTP No."
+                labelAlign="left"
+                name="ktp"
+                required
+                className={s.label_form}
+              >
                 <InputSearchGlobal width={240} />
               </Form.Item>
               <Form.Item
@@ -60,6 +84,7 @@ export default function EmInfo() {
                 labelAlign="left"
                 name="card_id"
                 required
+                className={s.label_form}
               >
                 <InputSearchGlobal width={240} />
               </Form.Item>
@@ -67,6 +92,7 @@ export default function EmInfo() {
                 label="Home Address 1"
                 labelAlign="left"
                 name="home_add1"
+                className={s.label_form}
               >
                 <InputSearchGlobal width={240} />
               </Form.Item>
@@ -74,6 +100,7 @@ export default function EmInfo() {
                 label="Home Address 2"
                 labelAlign="left"
                 name="home_add2"
+                className={s.label_form}
               >
                 <InputSearchGlobal width={240} />
               </Form.Item>
@@ -83,26 +110,39 @@ export default function EmInfo() {
                 label="Mobile No."
                 labelAlign="left"
                 name="card_number"
+                className={s.label_form}
               >
                 <InputSearchGlobal width={240} />
               </Form.Item>
-              <Form.Item label="Tel No." name="tel" labelAlign="left">
+              <Form.Item
+                label="Tel No."
+                name="tel"
+                labelAlign="left"
+                className={s.label_form}
+              >
                 <InputSearchGlobal width={240} />
               </Form.Item>
               <Form.Item
                 label="Marriage Status"
                 name="status"
                 labelAlign="left"
+                className={s.label_form}
               >
                 <SelectGlobal width={240} />
               </Form.Item>
-              <Form.Item label="Bank Card No." name="card_no" labelAlign="left">
+              <Form.Item
+                label="Bank Card No."
+                name="card_no"
+                labelAlign="left"
+                className={s.label_form}
+              >
                 <InputSearchGlobal width={240} />
               </Form.Item>
               <Form.Item
                 label="Bank Account No."
                 name="acc_number"
                 labelAlign="left"
+                className={s.label_form}
               >
                 <InputSearchGlobal width={240} />
               </Form.Item>
@@ -110,20 +150,23 @@ export default function EmInfo() {
                 label="Family Card Number "
                 name="family_number"
                 labelAlign="left"
+                className={s.label_form}
               >
                 <InputSearchGlobal width={240} />
               </Form.Item>
               <Form.Item
-                label="Safety Insurance No. "
+                label="Safety Insurance No"
                 name="safety"
                 labelAlign="left"
+                className={s.label_form}
               >
                 <InputSearchGlobal width={240} />
               </Form.Item>
               <Form.Item
-                label="Health Insurance No.  "
+                label="Health Insurance No"
                 name="health"
                 labelAlign="left"
+                className={s.label_form}
               >
                 <InputSearchGlobal width={240} />
               </Form.Item>

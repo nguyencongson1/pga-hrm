@@ -5,7 +5,7 @@ import SideBar from "../../layout/SideBar/SideBar";
 import s from "./ActionEmploy.module.scss";
 import EmInfo from "../../containers/EmInfo/EmInfo";
 import { TagGlobal } from "../../components/TagGlobal";
-import ContactInfo from "../../containers/ContactInfo/ContactInfo";
+import ContractInfo from "../../containers/ContractInfo/ContractInfo";
 import { useState } from "react";
 import EmDetail from "../../containers/EmDetail/EmDetail";
 import SalaryWage from "../../containers/SalaryWage/SalaryWage";
@@ -33,12 +33,12 @@ export function ActionEmploy() {
     {
       label: (
         <TagGlobal
-          label=" Contact Infomation"
-          type={typeTab == "contactInfo" ? "active" : ""}
+          label=" Contract Infomation"
+          type={typeTab == "contractInfo" ? "active" : ""}
         />
       ),
-      key: "contactInfo",
-      children: <ContactInfo />,
+      key: "contractInfo",
+      children: <ContractInfo />,
     },
     {
       label: (
@@ -96,7 +96,11 @@ export function ActionEmploy() {
                   },
                 }}
               >
-                <Tabs items={tabItem} onTabClick={handleChange} />
+                <Tabs
+                  items={tabItem}
+                  onTabClick={handleChange}
+                  // defaultActiveKey="other"
+                />
               </ConfigProvider>
             </div>
           </div>

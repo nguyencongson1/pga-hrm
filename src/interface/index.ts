@@ -1,5 +1,6 @@
 
 
+
 export interface IEmployManagement{
     id?:number;
     gender?:string;
@@ -23,4 +24,14 @@ export interface IEmployInfomation extends IEmployManagement{
     family_number?:string;
     safety?:string;
     health?:string;
+}
+export interface IContractInfo {
+    no?:number;
+    contract_name?:string;
+    sign_date?:string;
+}
+export interface IDocumentInfo{
+    no?:number;
+    document_name?:string;
+    create_at?:string;
 }
