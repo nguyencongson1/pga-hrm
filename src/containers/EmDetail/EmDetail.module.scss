@@ -1,0 +1,50 @@
+.detail_container{
+    .detail_box{
+        background-color: #fff;
+        padding:10px;
+        border-radius: 5px;
+        margin-bottom: 50px;
+        .first_map{
+            padding-bottom: 5px;
+            border-bottom: 1px solid #ccc;
+            margin-bottom:5px ;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            .required{
+                font-size: 14px;
+                font-family: "SVN-Sofia Pro Regular", "Public Sans", sans-serif;
+                font-weight: 400;
+                color: rgb(104, 112, 118);
+                .red{
+                    color: red;
+                }
+            }
+            .title{
+                font-family: "SVN-Sofia Pro Medium", "Public Sans", sans-serif;
+                font-weight: 500;
+                font-size: 20px;
+            }
+        }
+        .detail_form{
+            .label_detail{
+                >div:first-child{
+                    >div:first-child{
+                        >label{
+                            font-size: 16px;
+                            font-family: "SVN-Sofia Pro Regular", "Public Sans", sans-serif;
+                            font-weight: 400;
+                        }
+                    }
+                }
+                
+            }
+        }
+        .check_box{
+            .check_item{
+                display: flex;
+                flex-direction: column;
+            }
+        }
+    }
+}

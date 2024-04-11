@@ -1,0 +1,120 @@
+.contract_container{
+    .contract_box{
+        background-color: #fff;
+        padding:10px;
+        border-radius: 5px;
+        margin-bottom: 50px;
+        .first_map{
+            padding-bottom: 5px;
+            border-bottom: 1px solid #ccc;
+            margin-bottom:5px ;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            .required{
+                font-size: 14px;
+                font-family: "SVN-Sofia Pro Regular", "Public Sans", sans-serif;
+                font-weight: 400;
+                color: rgb(104, 112, 118);
+                .red{
+                    color: red;
+                }
+            }
+            .title{
+                font-family: "SVN-Sofia Pro Medium", "Public Sans", sans-serif;
+                font-weight: 500;
+                font-size: 20px;
+            }
+        }
+        .contract_form{
+            .label_contract{
+                >div:first-child{
+                    >div:first-child{
+                        >label{
+                            font-size: 16px;
+                            font-family: "SVN-Sofia Pro Regular", "Public Sans", sans-serif;
+                            font-weight: 400;
+                        }
+                    }
+                }
+                
+            }
+        }
+        .last_map{
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgb(223, 227, 230);
+            border-radius: 6px;
+            .title_contract{
+                border-bottom: 1px solid rgb(223, 227, 230);
+                >div:first-child{
+                    font-size: 12px;
+                    font-family: "SVN-Sofia Pro Regular", "Public Sans", sans-serif;
+                    color: rgb(104, 112, 118);
+                    font-weight: 600;
+                    background-color: rgb(241, 243, 245);
+                    padding: 5px 20px;
+                }
+                >div:nth-child(2){
+                    font-size: 14px;
+                    font-family: "SVN-Sofia Pro Regular", "Public Sans", sans-serif;
+                    font-weight: 400;
+                    color: rgb(104, 112, 118);
+                    padding: 10px 20px;
+                }
+            }
+            .contract_content{
+                display: flex;
+                flex-flow: wrap;
+                gap: 20px;
+                padding: 20px 14px 30px 20px;
+                .left_side{
+                    width: 35%;
+                    border-right: 1px solid #ccc;
+                    .label_contract{
+                        >div:first-child{
+                            >div:first-child{
+                                >label{
+                                    font-size: 16px;
+                                    font-family: "SVN-Sofia Pro Regular", "Public Sans", sans-serif;
+                                    font-weight: 400;
+                                }
+                            }
+                        }
+                    }
+                    .sb_btn{
+                        >div:first-child{
+                            >div:first-child{
+                                >div:first-child{
+                                    >div:first-child{
+                                        display: flex;
+                                        flex-direction: row;
+                                        gap: 10px;
+                                        .upload_btn{
+                                            color: rgb(0, 145, 255);
+                                            background-color: rgb(237, 246, 255);
+                                            font-size: 16px;
+                                            font-weight: 400;
+                                            border: 1px dashed;
+                                        }
+                                        .add_btn{
+                                            background-color: rgb(105, 217, 193);
+                                            font-family: "SVN-Sofia Pro Regular", "Public Sans", sans-serif;
+                                            color: rgb(234, 251, 246);
+                                            font-size: 16px;
+                                            width: 120px;
+                                        }
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+                }
+                .right_side{
+                    width:62%;
+                }
+            }
+        }
+    }
+}
