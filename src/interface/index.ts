@@ -35,3 +35,24 @@ export interface IDocumentInfo{
     document_name?:string;
     create_at?:string;
 }
+export interface ILoginform{
+    username:string;
+    password:string;
+    company_id:number;
+}
+
+export interface ICompany{
+    id:number;
+    name:string;
+    full_name:string;
+    addrress:string;
+    place:string;
+    tel_no:string;
+    mail:string;
+    prefix:string;
+    created_at:string;
+    update_at:string;
+}
+export interface IEmploy{
+    name:string;
+}
