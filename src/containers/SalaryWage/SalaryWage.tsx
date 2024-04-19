@@ -1,8 +1,9 @@
-import { Form } from "antd";
+import { Form, FormProps } from "antd";
 import s from "./SalaryWage.module.scss";
 import { InputSearchGlobal } from "../../components/InputGlobal";
+import React from "react";
 
-export default function SalaryWage() {
+export const SalaryWage: React.FC<FormProps> = (props) => {
   return (
     <div className={s.salary_container}>
       <div className={s.salary_box}>
@@ -13,9 +14,11 @@ export default function SalaryWage() {
           </div>
         </div>
         <Form
+          {...props}
           name="salary_form"
           labelCol={{ span: 6 }}
           className={s.salary_form}
+          // onFinish={handleFinish}
         >
           <Form.Item
             label="Basic Salary"
@@ -71,4 +74,4 @@ export default function SalaryWage() {
       </div>
     </div>
   );
-}
+};

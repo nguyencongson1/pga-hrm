@@ -137,7 +137,10 @@ export default function ContractInfo() {
               >
                 <Table
                   columns={columns}
-                  dataSource={data}
+                  dataSource={data?.map((item) => ({
+                    ...item,
+                    key: item.no,
+                  }))}
                   scroll={{ y: "5000px" }}
                   pagination={false}
                 />

@@ -3,16 +3,26 @@
 
 export interface IEmployManagement{
     id?:number;
-    gender?:string;
-    nik?:string;
+    staff_id?:string;
     name?:string;
-    card_number?:string;
-    acc_number?:string;
-    card_no?:string;
-    status?:string;
+    gender?:number;
+    marriage_code?:string;
     mother_name?:string;
-    place_birthday?:string;
-    
+    nc_id?:string;
+    created_at?:string;
+    department_name?:string;
+    position_name?:string;
+    ktp_no?:string;
+    mobile_no?:string;
+    tel_no?:string;
+    entitle_ot?:number;
+    resign_reason?:string;
+    grade_name?:string;
+    old_staff_id?:string;
+}
+export interface IParamAdd extends IEmployManagement{
+    home_address_1?:string;
+    home_address_2?:string;
 }
 export interface IEmployInfomation extends IEmployManagement{
     date?:string;
@@ -53,6 +63,10 @@ export interface ICompany{
     created_at:string;
     update_at:string;
 }
-export interface IEmploy{
-    name:string;
+export interface IParamEmploy{
+    search?:string;
+    page?:number;
+}
+export interface IDeleteId{
+    record_ids:React.Key[];
 }
