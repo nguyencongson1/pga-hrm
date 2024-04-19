@@ -2,6 +2,7 @@ import {
   Button,
   ConfigProvider,
   Form,
+  FormProps,
   Table,
   TableColumnsType,
   Tag,
@@ -16,7 +17,7 @@ import {
 } from "@ant-design/icons";
 import { IDocumentInfo } from "../../interface";
 
-export default function Other() {
+export const Other: React.FC<FormProps> = (props) => {
   const column: TableColumnsType<IDocumentInfo> = [
     {
       title: "No",
@@ -65,7 +66,12 @@ export default function Other() {
             Required (<span className={s.red}>*</span>)
           </div>
         </div>
-        <Form name="other_form" labelCol={{ span: 6 }} className={s.other_form}>
+        <Form
+          name="other_form"
+          labelCol={{ span: 6 }}
+          className={s.other_form}
+          {...props}
+        >
           <Form.Item
             label="Grade"
             colon={false}
@@ -132,4 +138,4 @@ export default function Other() {
       </div>
     </div>
   );
-}
+};

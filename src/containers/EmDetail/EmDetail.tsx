@@ -1,7 +1,7 @@
-import { Checkbox, ConfigProvider, Form } from "antd";
+import { Checkbox, ConfigProvider, Form, FormProps } from "antd";
 import s from "./EmDetail.module.scss";
 import { SelectGlobal } from "../../components/SelectGlobal";
-export default function EmDetail() {
+export const EmDetail: React.FC<FormProps> = (props) => {
   const option = [
     { label: "Entitled OT", value: "entitled_ot" },
     { label: "Meal Allowance Paid", value: "meal_paid" },
@@ -22,6 +22,7 @@ export default function EmDetail() {
         </div>
         <Form
           name="detail_form"
+          {...props}
           labelCol={{ span: 4 }}
           className={s.detail_form}
         >
@@ -82,4 +83,4 @@ export default function EmDetail() {
       </div>
     </div>
   );
-}
+};

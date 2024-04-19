@@ -1,11 +1,11 @@
 import { Formik } from "formik";
 import s from "./EmInfo.module.scss";
-import { DatePicker, Form, Space } from "antd";
+import { DatePicker, Form, FormProps, Space } from "antd";
 import { InputSearchGlobal } from "../../components/InputGlobal";
 import { SelectGlobal } from "../../components/SelectGlobal";
 import { IEmployInfomation } from "../../interface";
 
-export default function EmInfo() {
+export const EmInfo: React.FC<FormProps> = (props) => {
   const handleSubmitForm = (e: IEmployInfomation) => {
     console.log("object", e);
   };
@@ -23,19 +23,20 @@ export default function EmInfo() {
           onSubmit={(value) => handleSubmitForm(value)}
         >
           <Form
+            {...props}
             onFinish={() => onsubmit}
             className={s.form_eminfo}
             labelCol={{ span: 10 }}
           >
             <Space direction="vertical">
-              <Form.Item
+              {/* <Form.Item
                 label="NIK"
                 name="nik"
                 labelAlign="left"
                 className={s.label_form}
               >
                 <InputSearchGlobal width={240} />
-              </Form.Item>
+              </Form.Item> */}
               <Form.Item
                 label="Name"
                 name="name"
@@ -69,6 +70,14 @@ export default function EmInfo() {
                 className={s.label_form}
               >
                 <DatePicker style={{ height: "46px" }} />
+              </Form.Item>
+              <Form.Item
+                label="Place of birth"
+                labelAlign="left"
+                name="place"
+                className={s.label_form}
+              >
+                <InputSearchGlobal width={240} />
               </Form.Item>
               <Form.Item
                 label="KTP No."
@@ -147,6 +156,14 @@ export default function EmInfo() {
                 <InputSearchGlobal width={240} />
               </Form.Item>
               <Form.Item
+                label="Bank Name"
+                name="bank_name"
+                labelAlign="left"
+                className={s.label_form}
+              >
+                <InputSearchGlobal width={240} />
+              </Form.Item>
+              <Form.Item
                 label="Family Card Number "
                 name="family_number"
                 labelAlign="left"
@@ -176,4 +193,4 @@ export default function EmInfo() {
       </div>
     </div>
   );
-}
+};

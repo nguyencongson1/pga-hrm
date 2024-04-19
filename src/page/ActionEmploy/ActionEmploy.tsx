@@ -1,21 +1,30 @@
-import { ConfigProvider, Tabs } from "antd";
+import { ConfigProvider, Form, Tabs, message } from "antd";
 import { ButtonGlobal } from "../../components/ButtonGlobal";
 import { Header } from "../../layout/Header/Header";
 import SideBar from "../../layout/SideBar/SideBar";
 import s from "./ActionEmploy.module.scss";
-import EmInfo from "../../containers/EmInfo/EmInfo";
+import { EmInfo } from "../../containers/EmInfo/EmInfo";
 import { TagGlobal } from "../../components/TagGlobal";
 import ContractInfo from "../../containers/ContractInfo/ContractInfo";
 import { useState } from "react";
-import EmDetail from "../../containers/EmDetail/EmDetail";
-import SalaryWage from "../../containers/SalaryWage/SalaryWage";
-import Other from "../../containers/Other/Other";
+import { EmDetail } from "../../containers/EmDetail/EmDetail";
+import { SalaryWage } from "../../containers/SalaryWage/SalaryWage";
+import { Other } from "../../containers/Other/Other";
+import { createEmploy } from "../../service/api-service";
 
 export function ActionEmploy() {
   const [typeTab, setTypeTab] = useState("emInfo");
   const handleAdd = () => {
-    console.log("add");
+    // console.log("form", form.getFieldsValue(true));
+    createEmploy(form.getFieldsValue(true)).then((res) => {
+      if (res.result === true) {
+        message.success("thêm thành công");
+      }
+    });
   };
+
+  const [form] = Form.useForm();
+
   const handleChange = (e: string) => {
     setTypeTab(e);
   };
@@ -28,7 +37,7 @@ export function ActionEmploy() {
         />
       ),
       key: "emInfo",
-      children: <EmInfo />,
+      children: <EmInfo form={form} />,
     },
     {
       label: (
@@ -48,7 +57,7 @@ export function ActionEmploy() {
         />
       ),
       key: "emDetail",
-      children: <EmDetail />,
+      children: <EmDetail form={form} />,
     },
     {
       label: (
@@ -58,14 +67,14 @@ export function ActionEmploy() {
         />
       ),
       key: "salary",
-      children: <SalaryWage />,
+      children: <SalaryWage form={form} />,
     },
     {
       label: (
         <TagGlobal label="Other" type={typeTab == "other" ? "active" : ""} />
       ),
       key: "other",
-      children: <Other />,
+      children: <Other form={form} />,
     },
   ];
   return (
@@ -78,7 +87,11 @@ export function ActionEmploy() {
             <div>{`General > Employee Management > Add new employee`}</div>
             <div className={s.title_box}>
               <div className={s.title_name}>Employee Management</div>
-              <ButtonGlobal className={s.add_btn} onClick={handleAdd} disabled>
+              <ButtonGlobal
+                className={s.add_btn}
+                onClick={handleAdd}
+                disabled={false}
+              >
                 Add
               </ButtonGlobal>
             </div>
