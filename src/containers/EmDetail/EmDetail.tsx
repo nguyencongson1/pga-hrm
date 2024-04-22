@@ -2,15 +2,6 @@ import { Checkbox, ConfigProvider, Form, FormProps } from "antd";
 import s from "./EmDetail.module.scss";
 import { SelectGlobal } from "../../components/SelectGlobal";
 export const EmDetail: React.FC<FormProps> = (props) => {
-  const option = [
-    { label: "Entitled OT", value: "entitled_ot" },
-    { label: "Meal Allowance Paid", value: "meal_paid" },
-    { label: "Hidden on payroll", value: "hidden" },
-  ];
-  // const disOption = [
-  //   { label: "Operational Allowance Paid", value: "operational_paid" },
-  //   { label: "Attendance Allowance Paid", value: "attendance_paid" },
-  // ];
   return (
     <div className={s.detail_container}>
       <div className={s.detail_box}>
@@ -25,6 +16,13 @@ export const EmDetail: React.FC<FormProps> = (props) => {
           {...props}
           labelCol={{ span: 4 }}
           className={s.detail_form}
+          initialValues={{
+            entitle_ot: 0,
+            meal_allowance_paid: 0,
+            hidden_on_payroll: "0",
+            operational_allowance_paid: 0,
+            attendance_allowance_paid: 0,
+          }}
         >
           <Form.Item
             label="Department"
@@ -53,8 +51,6 @@ export const EmDetail: React.FC<FormProps> = (props) => {
           >
             <SelectGlobal width={250} />
           </Form.Item>
-        </Form>
-        <div className={s.check_box}>
           <ConfigProvider
             theme={{
               token: {
@@ -64,22 +60,52 @@ export const EmDetail: React.FC<FormProps> = (props) => {
               },
             }}
           >
-            <Checkbox.Group options={option} className={s.check_item} />
-            {/* <Checkbox.Group
-              options={disOption}
-              disabled
-              className={s.check_item}
-            /> */}
-            <div className={s.check_item}>
+            <Form.Item
+              name="entitle_ot"
+              className={s.checkbox_item}
+              valuePropName="checked"
+              getValueFromEvent={(e) => (e.target.checked ? 1 : 0)}
+            >
+              <Checkbox>Entitled OT </Checkbox>
+            </Form.Item>
+            <Form.Item
+              name="meal_allowance_paid"
+              className={s.checkbox_item}
+              valuePropName="checked"
+              getValueFromEvent={(e) => (e.target.checked ? 1 : 0)}
+            >
+              <Checkbox>Meal Allowance Paid </Checkbox>
+            </Form.Item>
+            <Form.Item
+              name="hidden_on_payroll"
+              className={s.checkbox_item}
+              valuePropName="checked"
+              getValueFromEvent={(e) => (e.target.checked ? "1" : "0")}
+            >
+              <Checkbox>Hidden on payroll </Checkbox>
+            </Form.Item>
+            <Form.Item
+              name="operational_allowance_paid"
+              className={s.checkbox_item}
+              valuePropName="checked"
+              getValueFromEvent={(e) => (e.target.checked ? 1 : 0)}
+            >
               <Checkbox disabled checked>
                 Operational Allowance Paid{" "}
               </Checkbox>
+            </Form.Item>
+            <Form.Item
+              name="attendance_allowance_paid"
+              className={s.checkbox_item}
+              valuePropName="checked"
+              getValueFromEvent={(e) => (e.target.checked ? 1 : 0)}
+            >
               <Checkbox disabled checked>
                 Attendance Allowance Paid{" "}
               </Checkbox>
-            </div>
+            </Form.Item>
           </ConfigProvider>
-        </div>
+        </Form>
       </div>
     </div>
   );

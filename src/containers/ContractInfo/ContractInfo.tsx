@@ -2,6 +2,7 @@ import {
   ConfigProvider,
   DatePicker,
   Form,
+  FormProps,
   Table,
   TableColumnsType,
   Tag,
@@ -13,7 +14,7 @@ import { ButtonGlobal } from "../../components/ButtonGlobal";
 import { DeleteOutlined, UploadOutlined } from "@ant-design/icons";
 import { IContractInfo } from "../../interface";
 
-export default function ContractInfo() {
+export const ContractInfo: React.FC<FormProps> = (props) => {
   const columns: TableColumnsType<IContractInfo> = [
     {
       title: "No",
@@ -64,11 +65,12 @@ export default function ContractInfo() {
           name="contract_form"
           labelCol={{ span: 4 }}
           className={s.contract_form}
+          {...props}
         >
           <Form.Item
             label="Date Start"
             colon={false}
-            name="date_start"
+            name="contract_start_date"
             labelAlign="left"
             className={s.label_contract}
           >
@@ -81,7 +83,23 @@ export default function ContractInfo() {
             className={s.label_contract}
             labelAlign="left"
           >
-            <SelectGlobal width={250} />
+            <SelectGlobal
+              width={250}
+              options={[
+                {
+                  value: 0,
+                  label: "Permanent",
+                },
+                {
+                  value: 1,
+                  label: "Part-time worker",
+                },
+                {
+                  value: 2,
+                  label: "Contract worker",
+                },
+              ]}
+            />
           </Form.Item>
         </Form>
         <div className={s.last_map}>
@@ -151,4 +169,4 @@ export default function ContractInfo() {
       </div>
     </div>
   );
-}
+};

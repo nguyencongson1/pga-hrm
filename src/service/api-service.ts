@@ -49,7 +49,16 @@ export const deleteEmploy =async(param:IDeleteId)=>{
 }
 export const createEmploy= async(param:IParamAdd)=>{
     try{
-        const res=await instance.post("/employee",{data: param , headers:configAuthen})
+        const res=await instance.post("/employee",param,{headers:configAuthen})
+        return res.data;
+    }catch(err){
+        console.log("err",err);
+        throw err;
+    }
+}
+export const getMarriage= async()=>{
+    try{
+        const res=await instance.get("/marriage",{ headers:configAuthen})
         return res.data;
     }catch(err){
         console.log("err",err);
