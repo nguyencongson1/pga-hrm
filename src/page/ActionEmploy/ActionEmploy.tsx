@@ -11,8 +11,9 @@ import { EmDetail } from "../../containers/EmDetail/EmDetail";
 import { SalaryWage } from "../../containers/SalaryWage/SalaryWage";
 import { Other } from "../../containers/Other/Other";
 import { createEmploy } from "../../service/api-service";
-import { convertDateFormatCross } from "../../utils/hooks/changeDate";
+// import { convertDateFormatCross } from "../../utils/hooks/changeDate";
 import { useNavigate } from "react-router-dom";
+// import { convertDateFormatCross } from "../../utils/hooks/changeDate";
 
 export function ActionEmploy() {
   const [typeTab, setTypeTab] = useState("emInfo");
@@ -22,15 +23,11 @@ export function ActionEmploy() {
     // console.log("form", form.getFieldsValue(true));
     setGetField(!getField);
     const param = form.getFieldsValue(true);
-    if ("dob" in param) {
-      param.dob = convertDateFormatCross(param.dob);
-    }
-    if ("contract_start_date" in param) {
-      param.contract_start_date = convertDateFormatCross(
-        param.contract_start_date
-      );
-    }
-    console.log("aaaaaaaa", param);
+    // if ("contract_start_date" in param) {
+    //   param.contract_start_date = convertDateFormatCross(
+    //     param.contract_start_date
+    //   );
+    // }
     try {
       const res = await createEmploy(param);
       if (res.result === true) {
@@ -40,6 +37,7 @@ export function ActionEmploy() {
     } catch (err) {
       message.error("loi");
       // throw err;
+      navigate("/employ-info");
     }
   };
 

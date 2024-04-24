@@ -1,6 +1,7 @@
 import axios from "axios";
 import { API_URL } from "../config/api-config";
 import { IDeleteId, ILoginform, IParamAdd, IParamEmploy } from "../interface";
+// import { convertDateFormatCross } from "../utils/hooks/changeDate";
 
 const instance = axios.create({
     baseURL: API_URL
@@ -53,12 +54,30 @@ export const createEmploy= async(param:IParamAdd)=>{
         return res.data;
     }catch(err){
         console.log("err",err);
-        throw err;
+        throw err;  
     }
 }
 export const getMarriage= async()=>{
     try{
         const res=await instance.get("/marriage",{ headers:configAuthen})
+        return res.data;
+    }catch(err){
+        console.log("err",err);
+        throw err;
+    }
+}
+export const getDepartment= async()=>{
+    try{
+        const res=await instance.get("/department",{ headers:configAuthen})
+        return res.data;
+    }catch(err){
+        console.log("err",err);
+        throw err;
+    }
+}
+export const getPosition= async()=>{
+    try{
+        const res=await instance.get("/position",{ headers:configAuthen})
         return res.data;
     }catch(err){
         console.log("err",err);

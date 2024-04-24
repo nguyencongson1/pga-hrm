@@ -23,10 +23,11 @@ export interface IEmployManagement{
 export interface IParamAdd extends IEmployManagement{
     home_address_1?:string;
     home_address_2?:string;
-    type?:number;
+    type?:string;
     contract_start_date?:string;
     dob?:string;
     pob?:string;
+    card_number?:string;
 }
 export interface IEmployInfomation extends IEmployManagement{
     date?:string;
@@ -82,3 +83,4 @@ export interface IResMirrage{
     create_at?:string;
     updated_at?:string;
 }
+

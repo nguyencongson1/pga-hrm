@@ -7,14 +7,18 @@ import {
   TableColumnsType,
   Tag,
 } from "antd";
+
 import s from "./ContractInfo.module.scss";
 import { SelectGlobal } from "../../components/SelectGlobal";
 import { InputSearchGlobal } from "../../components/InputGlobal";
 import { ButtonGlobal } from "../../components/ButtonGlobal";
 import { DeleteOutlined, UploadOutlined } from "@ant-design/icons";
 import { IContractInfo } from "../../interface";
+import { useState } from "react";
+import moment from "moment";
 
 export const ContractInfo: React.FC<FormProps> = (props) => {
+  const [contractStartDate, setContractStartDate] = useState("");
   const columns: TableColumnsType<IContractInfo> = [
     {
       title: "No",
@@ -25,11 +29,6 @@ export const ContractInfo: React.FC<FormProps> = (props) => {
     {
       title: "Contract Name",
       dataIndex: "contract_name",
-    },
-    {
-      title: "Sign Date",
-      dataIndex: "sign_date",
-      key: "sign_date",
     },
     {
       title: "Action",
@@ -49,9 +48,13 @@ export const ContractInfo: React.FC<FormProps> = (props) => {
     {
       no: 1,
       contract_name: "son",
-      sign_date: "22/2/2022",
     },
   ];
+  const handleDatePickerChange = (date: moment.Moment | null) => {
+    const formattedDate = date ? date.format("YYYY-MM-DD") : "";
+    setContractStartDate(formattedDate);
+    console.log("date", formattedDate);
+  };
   return (
     <div className={s.contract_container}>
       <div className={s.contract_box}>
@@ -66,6 +69,9 @@ export const ContractInfo: React.FC<FormProps> = (props) => {
           labelCol={{ span: 4 }}
           className={s.contract_form}
           {...props}
+          // initialValues={{
+          //   contract_start_date: contractStartDate,
+          // }}
         >
           <Form.Item
             label="Date Start"
@@ -74,7 +80,11 @@ export const ContractInfo: React.FC<FormProps> = (props) => {
             labelAlign="left"
             className={s.label_contract}
           >
-            <DatePicker style={{ height: "46px", width: "250px" }} />
+            <DatePicker
+              style={{ height: "46px", width: "250px" }}
+              onChange={(e) => handleDatePickerChange(e)}
+              value={contractStartDate ? moment(contractStartDate) : null}
+            />
           </Form.Item>
           <Form.Item
             label="Employee Type"
@@ -87,15 +97,15 @@ export const ContractInfo: React.FC<FormProps> = (props) => {
               width={250}
               options={[
                 {
-                  value: 0,
+                  value: "0",
                   label: "Permanent",
                 },
                 {
-                  value: 1,
+                  value: "1",
                   label: "Part-time worker",
                 },
                 {
-                  value: 2,
+                  value: "2",
                   label: "Contract worker",
                 },
               ]}

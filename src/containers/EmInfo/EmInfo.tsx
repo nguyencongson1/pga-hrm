@@ -1,4 +1,5 @@
 import s from "./EmInfo.module.scss";
+import React from "react";
 import { DatePicker, Form, FormProps, Space } from "antd";
 import { InputSearchGlobal } from "../../components/InputGlobal";
 import { SelectGlobal } from "../../components/SelectGlobal";
@@ -79,6 +80,7 @@ export const EmInfo: React.FC<FormProps> = (props) => {
               labelAlign="left"
               name="dob"
               className={s.label_form}
+              required
             >
               <DatePicker style={{ height: "46px", width: "240px" }} />
             </Form.Item>
@@ -102,8 +104,7 @@ export const EmInfo: React.FC<FormProps> = (props) => {
             <Form.Item
               label="National Card ID"
               labelAlign="left"
-              name="card_id"
-              required
+              name="card_number"
               className={s.label_form}
             >
               <InputSearchGlobal width={240} />
