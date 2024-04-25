@@ -11,6 +11,7 @@ import plusImg from "../../assets/images/file-plus.png";
 import { useEffect, useState } from "react";
 import { deleteEmploy, getEmploy } from "../../service/api-service";
 import { useDebounce } from "../../utils/hooks/useDebounce";
+import { convertDateFormat } from "../../utils/hooks/changeDate";
 
 export default function EmployInfo() {
   const [param, setParam] = useState<IParamEmploy>({
@@ -60,7 +61,13 @@ export default function EmployInfo() {
     {
       title: "Date Start",
       dataIndex: "created_at",
-      key: "created_at",
+      render: (_, record) => {
+        if (record?.created_at) {
+          const time = convertDateFormat(record?.created_at);
+          return <div>{time}</div>;
+        }
+        return <div>--</div>;
+      },
     },
     {
       title: "Department",

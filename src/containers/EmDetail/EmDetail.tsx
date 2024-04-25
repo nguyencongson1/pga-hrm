@@ -1,16 +1,41 @@
 import { Checkbox, ConfigProvider, Form, FormProps } from "antd";
 import s from "./EmDetail.module.scss";
 import { SelectGlobal } from "../../components/SelectGlobal";
+import { useEffect, useState } from "react";
+import { getDepartment, getPosition } from "../../service/api-service";
+import { IResMirrage } from "../../interface";
 export const EmDetail: React.FC<FormProps> = (props) => {
-  const option = [
-    { label: "Entitled OT", value: "entitled_ot" },
-    { label: "Meal Allowance Paid", value: "meal_paid" },
-    { label: "Hidden on payroll", value: "hidden" },
-  ];
-  // const disOption = [
-  //   { label: "Operational Allowance Paid", value: "operational_paid" },
-  //   { label: "Attendance Allowance Paid", value: "attendance_paid" },
-  // ];
+  const [checkbox, setCheckbox] = useState<boolean>(true);
+  const [refreshSelect, setRefreshSelect] = useState<boolean>(false);
+  const [optionDepartment, setOptionDepartment] = useState([]);
+  const [optionPosition, setOptionPosition] = useState([]);
+  useEffect(() => {
+    getDepartment().then((res) => {
+      if (res.result === true) {
+        const newDepartmentList = res.data.map((item: IResMirrage) => ({
+          label: item.name,
+          value: item.id,
+        }));
+        setOptionDepartment(newDepartmentList);
+      }
+    });
+
+    getPosition().then((res) => {
+      if (res.result === true) {
+        const newPositionList = res.data.map((item: IResMirrage) => ({
+          label: item.name,
+          value: item.id,
+        }));
+        setOptionPosition(newPositionList);
+      }
+    });
+  }, [refreshSelect]);
+  const handleSelectDepartment = () => {
+    setRefreshSelect(!refreshSelect);
+  };
+  const handleSelectPosition = () => {
+    setRefreshSelect(!refreshSelect);
+  };
   return (
     <div className={s.detail_container}>
       <div className={s.detail_box}>
@@ -25,36 +50,38 @@ export const EmDetail: React.FC<FormProps> = (props) => {
           {...props}
           labelCol={{ span: 4 }}
           className={s.detail_form}
+          initialValues={{
+            entitle_ot: false,
+            meal_allowance_paid: false,
+            hidden_on_payroll: "0",
+          }}
         >
           <Form.Item
             label="Department"
             colon={false}
-            name="department"
+            name="department_id"
             labelAlign="left"
             className={s.label_detail}
           >
-            <SelectGlobal width={250} />
+            <SelectGlobal
+              width={250}
+              options={optionDepartment}
+              onClick={handleSelectDepartment}
+            />
           </Form.Item>
           <Form.Item
             label="Position"
             colon={false}
-            name="type"
+            name="position_id"
             className={s.label_detail}
             labelAlign="left"
           >
-            <SelectGlobal width={250} />
+            <SelectGlobal
+              width={250}
+              onClick={handleSelectPosition}
+              options={optionPosition}
+            />
           </Form.Item>
-          <Form.Item
-            label="Shift"
-            colon={false}
-            name="shift"
-            className={s.label_detail}
-            labelAlign="left"
-          >
-            <SelectGlobal width={250} />
-          </Form.Item>
-        </Form>
-        <div className={s.check_box}>
           <ConfigProvider
             theme={{
               token: {
@@ -64,22 +91,62 @@ export const EmDetail: React.FC<FormProps> = (props) => {
               },
             }}
           >
-            <Checkbox.Group options={option} className={s.check_item} />
-            {/* <Checkbox.Group
-              options={disOption}
-              disabled
-              className={s.check_item}
-            /> */}
-            <div className={s.check_item}>
-              <Checkbox disabled checked>
+            <Form.Item
+              name="entitle_ot"
+              className={s.checkbox_item}
+              valuePropName="checked"
+              getValueFromEvent={(e) => (e.target.checked ? true : false)}
+            >
+              <Checkbox onChange={(e) => setCheckbox(!e.target.checked)}>
+                Entitled OT{" "}
+              </Checkbox>
+            </Form.Item>
+            <Form.Item
+              name="meal_allowance_paid"
+              className={s.checkbox_item}
+              valuePropName="checked"
+              // getValueFromEvent={(e) => (e.target.checked ? 1 : 0)}
+            >
+              <Checkbox>Meal Allowance Paid </Checkbox>
+            </Form.Item>
+            <Form.Item
+              name="hidden_on_payroll"
+              className={s.checkbox_item}
+              // valuePropName="checked"
+              getValueFromEvent={(e) => (e.target.checked ? "1" : "0")}
+            >
+              <Checkbox>Hidden on payroll </Checkbox>
+            </Form.Item>
+            <Form.Item
+              name="operational_allowance_paid"
+              className={s.checkbox_item}
+              // valuePropName="checked"
+              // getValueFromEvent={(e) => (e.target.checked ? true : false)}
+            >
+              <Checkbox
+                disabled
+                checked={checkbox}
+                name="operational_allowance_paid"
+              >
                 Operational Allowance Paid{" "}
               </Checkbox>
-              <Checkbox disabled checked>
+            </Form.Item>
+            <Form.Item
+              name="attendance_allowance_paid"
+              className={s.checkbox_item}
+              // valuePropName="checked"
+              // getValueFromEvent={(e) => (e.target.checked ? true : false)}
+            >
+              <Checkbox
+                name="attendance_allowance_paid"
+                disabled
+                checked={checkbox}
+              >
                 Attendance Allowance Paid{" "}
               </Checkbox>
-            </div>
+            </Form.Item>
           </ConfigProvider>
-        </div>
+        </Form>
       </div>
     </div>
   );

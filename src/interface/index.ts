@@ -23,6 +23,11 @@ export interface IEmployManagement{
 export interface IParamAdd extends IEmployManagement{
     home_address_1?:string;
     home_address_2?:string;
+    type?:string;
+    contract_start_date?:string;
+    dob?:string;
+    pob?:string;
+    card_number?:string;
 }
 export interface IEmployInfomation extends IEmployManagement{
     date?:string;
@@ -70,3 +75,19 @@ export interface IParamEmploy{
 export interface IDeleteId{
     record_ids:React.Key[];
 }
+export interface IResMirrage{
+    id?:number;
+    name?:string;
+    code?:string;
+    company_id?:number;
+    create_at?:string;
+    updated_at?:string;
+}
+export interface IParamForgot{
+    email?:string;
+    company_id?:string;
+    token?:string;
+    password?:string;
+    password_confirmation ?:string;
+}
+

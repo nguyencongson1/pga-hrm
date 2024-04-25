@@ -14,6 +14,9 @@ export interface IOptionCompany {
   value: number;
 }
 export default function LoginPage() {
+  const handleForgot = () => {
+    navigate("/forgot-password");
+  };
   const navigate = useNavigate();
   const [company, setCompany] = useState<IOptionCompany[]>([]);
   const onFinish = (value: ILoginform) => {
@@ -97,7 +100,9 @@ export default function LoginPage() {
               Sign In
             </Button>
           </Form.Item>
-          <div className={s.text_forget}>Forgot Your Password?</div>
+          <div className={s.text_forget} onClick={handleForgot}>
+            Forgot Your Password?
+          </div>
         </Form>
       </div>
     </div>

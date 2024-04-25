@@ -2,18 +2,25 @@ import {
   ConfigProvider,
   DatePicker,
   Form,
+  FormProps,
   Table,
   TableColumnsType,
   Tag,
 } from "antd";
+
 import s from "./ContractInfo.module.scss";
 import { SelectGlobal } from "../../components/SelectGlobal";
 import { InputSearchGlobal } from "../../components/InputGlobal";
 import { ButtonGlobal } from "../../components/ButtonGlobal";
 import { DeleteOutlined, UploadOutlined } from "@ant-design/icons";
 import { IContractInfo } from "../../interface";
+import moment from "moment";
 
-export default function ContractInfo() {
+interface CustomDatePickerProps {
+  value: string | null;
+  onChange?: (date: string | null | string[]) => void;
+}
+export const ContractInfo: React.FC<FormProps> = (props) => {
   const columns: TableColumnsType<IContractInfo> = [
     {
       title: "No",
@@ -24,11 +31,6 @@ export default function ContractInfo() {
     {
       title: "Contract Name",
       dataIndex: "contract_name",
-    },
-    {
-      title: "Sign Date",
-      dataIndex: "sign_date",
-      key: "sign_date",
     },
     {
       title: "Action",
@@ -48,9 +50,21 @@ export default function ContractInfo() {
     {
       no: 1,
       contract_name: "son",
-      sign_date: "22/2/2022",
     },
   ];
+  const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
+    value,
+    onChange,
+  }) => (
+    <DatePicker
+      value={value ? moment(value, "YYYY-MM-DD") : null}
+      format="YYYY-MM-DD"
+      onChange={(_, dateString: string | string[]) => {
+        onChange?.(dateString);
+      }}
+      style={{ height: "46px", width: "250px" }}
+    />
+  );
   return (
     <div className={s.contract_container}>
       <div className={s.contract_box}>
@@ -64,15 +78,16 @@ export default function ContractInfo() {
           name="contract_form"
           labelCol={{ span: 4 }}
           className={s.contract_form}
+          {...props}
         >
           <Form.Item
             label="Date Start"
             colon={false}
-            name="date_start"
+            name="contract_start_date"
             labelAlign="left"
             className={s.label_contract}
           >
-            <DatePicker style={{ height: "46px", width: "250px" }} />
+            <CustomDatePicker value={null} onChange={() => {}} />
           </Form.Item>
           <Form.Item
             label="Employee Type"
@@ -81,7 +96,23 @@ export default function ContractInfo() {
             className={s.label_contract}
             labelAlign="left"
           >
-            <SelectGlobal width={250} />
+            <SelectGlobal
+              width={250}
+              options={[
+                {
+                  value: "0",
+                  label: "Permanent",
+                },
+                {
+                  value: "1",
+                  label: "Part-time worker",
+                },
+                {
+                  value: "2",
+                  label: "Contract worker",
+                },
+              ]}
+            />
           </Form.Item>
         </Form>
         <div className={s.last_map}>
@@ -151,4 +182,4 @@ export default function ContractInfo() {
       </div>
     </div>
   );
-}
+};

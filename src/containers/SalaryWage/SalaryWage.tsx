@@ -25,7 +25,6 @@ export const SalaryWage: React.FC<FormProps> = (props) => {
             colon={false}
             name="basic_salary"
             labelAlign="left"
-            required
             className={s.label_detail}
           >
             <InputSearchGlobal width={250} type="number" prefix="Rp" />
@@ -36,7 +35,6 @@ export const SalaryWage: React.FC<FormProps> = (props) => {
             name="audit_salary"
             className={s.label_detail}
             labelAlign="left"
-            required
           >
             <InputSearchGlobal width={250} type="number" prefix="Rp" />
           </Form.Item>
@@ -46,7 +44,6 @@ export const SalaryWage: React.FC<FormProps> = (props) => {
             name="safety_amount"
             className={s.label_detail}
             labelAlign="left"
-            required
           >
             <InputSearchGlobal width={250} type="number" prefix="Rp" />
           </Form.Item>
@@ -55,7 +52,6 @@ export const SalaryWage: React.FC<FormProps> = (props) => {
             colon={false}
             name="health_amount"
             labelAlign="left"
-            required
             className={s.label_detail}
           >
             <InputSearchGlobal width={250} type="number" prefix="Rp" />
@@ -65,7 +61,6 @@ export const SalaryWage: React.FC<FormProps> = (props) => {
             colon={false}
             name="meal_allowance"
             labelAlign="left"
-            required
             className={s.label_detail}
           >
             <InputSearchGlobal width={250} type="number" prefix="Rp" />

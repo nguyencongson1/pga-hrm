@@ -5,26 +5,42 @@ import SideBar from "../../layout/SideBar/SideBar";
 import s from "./ActionEmploy.module.scss";
 import { EmInfo } from "../../containers/EmInfo/EmInfo";
 import { TagGlobal } from "../../components/TagGlobal";
-import ContractInfo from "../../containers/ContractInfo/ContractInfo";
+import { ContractInfo } from "../../containers/ContractInfo/ContractInfo";
 import { useState } from "react";
 import { EmDetail } from "../../containers/EmDetail/EmDetail";
 import { SalaryWage } from "../../containers/SalaryWage/SalaryWage";
 import { Other } from "../../containers/Other/Other";
 import { createEmploy } from "../../service/api-service";
+// import { convertDateFormatCross } from "../../utils/hooks/changeDate";
+import { useNavigate } from "react-router-dom";
+// import { convertDateFormatCross } from "../../utils/hooks/changeDate";
 
 export function ActionEmploy() {
   const [typeTab, setTypeTab] = useState("emInfo");
-  const handleAdd = () => {
-    // console.log("form", form.getFieldsValue(true));
-    createEmploy(form.getFieldsValue(true)).then((res) => {
+  const navigate = useNavigate();
+  const [getField, setGetField] = useState<boolean>(true);
+  const handleAdd = async () => {
+    setGetField(!getField);
+    const param = form.getFieldsValue(true);
+    // if ("contract_start_date" in param) {
+    //   param.contract_start_date = convertDateFormatCross(
+    //     param.contract_start_date
+    //   );
+    // }
+    try {
+      const res = await createEmploy(param);
       if (res.result === true) {
         message.success("thêm thành công");
+        navigate("/employ-info");
       }
-    });
+    } catch (err) {
+      message.error("loi");
+      // throw err;
+      navigate("/employ-info");
+    }
   };
 
   const [form] = Form.useForm();
-
   const handleChange = (e: string) => {
     setTypeTab(e);
   };
@@ -47,7 +63,7 @@ export function ActionEmploy() {
         />
       ),
       key: "contractInfo",
-      children: <ContractInfo />,
+      children: <ContractInfo form={form} />,
     },
     {
       label: (

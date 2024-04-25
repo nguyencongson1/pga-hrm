@@ -1,6 +1,7 @@
 import axios from "axios";
 import { API_URL } from "../config/api-config";
-import { IDeleteId, ILoginform, IParamAdd, IParamEmploy } from "../interface";
+import { IDeleteId, ILoginform, IParamAdd, IParamEmploy, IParamForgot } from "../interface";
+// import { convertDateFormatCross } from "../utils/hooks/changeDate";
 
 const instance = axios.create({
     baseURL: API_URL
@@ -49,10 +50,65 @@ export const deleteEmploy =async(param:IDeleteId)=>{
 }
 export const createEmploy= async(param:IParamAdd)=>{
     try{
-        const res=await instance.post("/employee",{data: param , headers:configAuthen})
+        const res=await instance.post("/employee",param,{headers:configAuthen})
         return res.data;
     }catch(err){
         console.log("err",err);
+        throw err;  
+    }
+}
+export const getMarriage= async()=>{
+    try{
+        const res=await instance.get("/marriage",{ headers:configAuthen})
+        return res.data;
+    }catch(err){
+        console.log("err",err);
+        throw err;
+    }
+}
+export const getDepartment= async()=>{
+    try{
+        const res=await instance.get("/department",{ headers:configAuthen})
+        return res.data;
+    }catch(err){
+        console.log("err",err);
+        throw err;
+    }
+}
+export const getPosition= async()=>{
+    try{
+        const res=await instance.get("/position",{ headers:configAuthen})
+        return res.data;
+    }catch(err){
+        console.log("err",err);
+        throw err;
+    }
+}
+export const forgotPassword=async(param:IParamForgot)=>{
+    try{
+        const res=await instance.post("/forgot-password",param);
+        return res.data
+    }catch(err){
+        console.log("lỗi",err);
+        throw err
+    }
+}
+export const resetPassword =async(param:IParamForgot)=>{
+    try{
+        const urlSearchParams = new URLSearchParams(window.location.search);
+        const token = urlSearchParams.get('token');
+        const email = urlSearchParams.get('email');
+        const company_id=urlSearchParams.get('company_id');
+        const updatedParam: IParamForgot = {
+            ...param,
+            "token": token || '', 
+            "email": email || '',
+            "company_id":company_id || ''
+        };
+        const res=await instance.post("/reset-password",updatedParam);
+        return res.data
+    }catch(err){
+        console.log("loix",err);
         throw err;
     }
 }
