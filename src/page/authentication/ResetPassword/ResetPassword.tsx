@@ -1,10 +1,16 @@
 import { InputSearchGlobal } from "../../../components/InputGlobal";
-import s from "./ChangePassword.module.scss";
+import s from "./ResetPassword.module.scss";
 import logo from "../../../assets/images/Rectangle 4.png";
 import { Button, Form } from "antd";
-export default function ChangePasswordPage() {
-  const onFinish = () => {
-    console.log("value");
+import { resetPassword } from "../../../service/api-service";
+import { IParamForgot } from "../../../interface";
+export default function ResetPasswordPage() {
+  const onFinish = (value: IParamForgot) => {
+    resetPassword(value).then((res) => {
+      if (res.result === true) {
+        console.log("ok");
+      }
+    });
   };
   return (
     <div className={s.login_container}>
@@ -23,8 +29,8 @@ export default function ChangePasswordPage() {
         >
           <div className={s.title_form}>Change password</div>
           <Form.Item
-            label=" New Password :"
-            name="newPassword"
+            label=" New Password "
+            name="password"
             style={{ width: 300 }}
             colon={true}
             className={s.form_item}
@@ -33,7 +39,7 @@ export default function ChangePasswordPage() {
           </Form.Item>
           <Form.Item
             label="Confirm Password :"
-            name="confirmPassword"
+            name="password_confirmation"
             style={{ width: 300 }}
             colon={true}
             className={s.form_item}

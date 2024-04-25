@@ -14,11 +14,13 @@ import { InputSearchGlobal } from "../../components/InputGlobal";
 import { ButtonGlobal } from "../../components/ButtonGlobal";
 import { DeleteOutlined, UploadOutlined } from "@ant-design/icons";
 import { IContractInfo } from "../../interface";
-import { useState } from "react";
 import moment from "moment";
 
+interface CustomDatePickerProps {
+  value: string | null;
+  onChange?: (date: string | null | string[]) => void;
+}
 export const ContractInfo: React.FC<FormProps> = (props) => {
-  const [contractStartDate, setContractStartDate] = useState("");
   const columns: TableColumnsType<IContractInfo> = [
     {
       title: "No",
@@ -50,11 +52,19 @@ export const ContractInfo: React.FC<FormProps> = (props) => {
       contract_name: "son",
     },
   ];
-  const handleDatePickerChange = (date: moment.Moment | null) => {
-    const formattedDate = date ? date.format("YYYY-MM-DD") : "";
-    setContractStartDate(formattedDate);
-    console.log("date", formattedDate);
-  };
+  const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
+    value,
+    onChange,
+  }) => (
+    <DatePicker
+      value={value ? moment(value, "YYYY-MM-DD") : null}
+      format="YYYY-MM-DD"
+      onChange={(_, dateString: string | string[]) => {
+        onChange?.(dateString);
+      }}
+      style={{ height: "46px", width: "250px" }}
+    />
+  );
   return (
     <div className={s.contract_container}>
       <div className={s.contract_box}>
@@ -69,9 +79,6 @@ export const ContractInfo: React.FC<FormProps> = (props) => {
           labelCol={{ span: 4 }}
           className={s.contract_form}
           {...props}
-          // initialValues={{
-          //   contract_start_date: contractStartDate,
-          // }}
         >
           <Form.Item
             label="Date Start"
@@ -80,11 +87,7 @@ export const ContractInfo: React.FC<FormProps> = (props) => {
             labelAlign="left"
             className={s.label_contract}
           >
-            <DatePicker
-              style={{ height: "46px", width: "250px" }}
-              onChange={(e) => handleDatePickerChange(e)}
-              value={contractStartDate ? moment(contractStartDate) : null}
-            />
+            <CustomDatePicker value={null} onChange={() => {}} />
           </Form.Item>
           <Form.Item
             label="Employee Type"

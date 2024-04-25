@@ -20,7 +20,6 @@ export function ActionEmploy() {
   const navigate = useNavigate();
   const [getField, setGetField] = useState<boolean>(true);
   const handleAdd = async () => {
-    // console.log("form", form.getFieldsValue(true));
     setGetField(!getField);
     const param = form.getFieldsValue(true);
     // if ("contract_start_date" in param) {

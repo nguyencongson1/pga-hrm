@@ -83,4 +83,11 @@ export interface IResMirrage{
     create_at?:string;
     updated_at?:string;
 }
+export interface IParamForgot{
+    email?:string;
+    company_id?:string;
+    token?:string;
+    password?:string;
+    password_confirmation ?:string;
+}
 
