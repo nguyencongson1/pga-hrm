@@ -16,6 +16,7 @@ const publicRoutes=[
 ]
 const privateRoutes=[
     {path:"/employ-info", element: EmployInfo},
+    {path:"/employ-action/:id",element: ActionEmploy},
     {path:"/employ-action",element: ActionEmploy},
 ]
 export {publicRoutes , privateRoutes }

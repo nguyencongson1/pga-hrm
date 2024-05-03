@@ -19,6 +19,7 @@ export interface IEmployManagement{
     resign_reason?:string;
     grade_name?:string;
     old_staff_id?:string;
+    bank_account_no?:string;
 }
 export interface IParamAdd extends IEmployManagement{
     home_address_1?:string;
@@ -28,6 +29,7 @@ export interface IParamAdd extends IEmployManagement{
     dob?:string;
     pob?:string;
     card_number?:string;
+    marriage_id?:number;
 }
 export interface IEmployInfomation extends IEmployManagement{
     date?:string;

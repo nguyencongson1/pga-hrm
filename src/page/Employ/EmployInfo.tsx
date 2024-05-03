@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { deleteEmploy, getEmploy } from "../../service/api-service";
 import { useDebounce } from "../../utils/hooks/useDebounce";
 import { convertDateFormat } from "../../utils/hooks/changeDate";
+import { setIdEmploy, storeRedux } from "../../redux/store-redux";
 
 export default function EmployInfo() {
   const [param, setParam] = useState<IParamEmploy>({
@@ -186,6 +187,11 @@ export default function EmployInfo() {
       }
     });
   };
+  const handleCLickDetail = (id: number | undefined) => {
+    storeRedux.dispatch(setIdEmploy(id));
+    navigate(`/employ-action/${id}`);
+    // console.log("redux", storeRedux.getState().employId);
+  };
   return (
     <div className={s.employInfo_container}>
       <Header />
@@ -241,6 +247,11 @@ export default function EmployInfo() {
                     className={s.table_employ}
                     rowClassName={s.row_employ}
                     scroll={{ x: "2000px" }}
+                    onRow={(record) => ({
+                      onDoubleClick: () => {
+                        handleCLickDetail(record?.id);
+                      },
+                    })}
                   />
                 </ConfigProvider>
               </div>

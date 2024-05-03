@@ -4,6 +4,7 @@ import { SelectGlobal } from "../../components/SelectGlobal";
 import { useEffect, useState } from "react";
 import { getDepartment, getPosition } from "../../service/api-service";
 import { IResMirrage } from "../../interface";
+import { storeRedux } from "../../redux/store-redux";
 export const EmDetail: React.FC<FormProps> = (props) => {
   const [checkbox, setCheckbox] = useState<boolean>(true);
   const [refreshSelect, setRefreshSelect] = useState<boolean>(false);
@@ -36,6 +37,11 @@ export const EmDetail: React.FC<FormProps> = (props) => {
   const handleSelectPosition = () => {
     setRefreshSelect(!refreshSelect);
   };
+  useEffect(() => {
+    props.form?.setFieldsValue({
+      department_id: storeRedux.getState().employInfo.department.id,
+    });
+  }, []);
   return (
     <div className={s.detail_container}>
       <div className={s.detail_box}>
