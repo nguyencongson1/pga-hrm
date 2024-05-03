@@ -112,3 +112,25 @@ export const resetPassword =async(param:IParamForgot)=>{
         throw err;
     }
 }
+export const getEmployee =async()=>{
+    try{
+        const parts = window.location.href.split("/");
+        const id = parts[parts.length - 1];
+        const res=await instance.get(`/employee/${id}`,{headers:configAuthen})
+        return res.data
+    }catch(err){
+        console.log("loi");
+        throw err
+    }
+}
+export const updateEmployee =async(param:IParamAdd)=>{
+    try{
+        const parts = window.location.href.split("/");
+        const id = parts[parts.length - 1];
+        const res=await instance.put(`/employee/${id}`,param,{headers:configAuthen})
+        return res.data
+    }catch(err){
+        console.log("loi");
+        throw err
+    }
+}

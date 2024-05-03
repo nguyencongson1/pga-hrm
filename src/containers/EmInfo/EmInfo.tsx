@@ -6,11 +6,14 @@ import { SelectGlobal } from "../../components/SelectGlobal";
 import { IResMirrage } from "../../interface";
 import { useEffect, useState } from "react";
 import { getMarriage } from "../../service/api-service";
+import { storeRedux } from "../../redux/store-redux";
+import dayjs from "dayjs";
 
 export const EmInfo: React.FC<FormProps> = (props) => {
   const [call, setCall] = useState<boolean>(true);
+  // const [init, setInit] = useState<boolean>(true);
   const [optionMirri, setOptionMirri] = useState([]);
-
+  // const [init, setInit] = useState<IParamAdd>({});
   const handleChooseMirriage = () => {
     setCall(!call);
   };
@@ -22,9 +25,35 @@ export const EmInfo: React.FC<FormProps> = (props) => {
           value: item.id,
         }));
         setOptionMirri(newMirriageList);
+        // setInit(!init)
       }
     });
   }, [call]);
+  // console.log("aaa", storeRedux.getState().employInfo);
+  useEffect(() => {
+    const dobValue = storeRedux.getState().employInfo.dob; // Giả sử đây là giá trị dob từ storeRedux
+    const dobAsDayjs = dayjs(dobValue);
+    props.form?.setFieldsValue({
+      name: storeRedux.getState().employInfo.name,
+      gender: storeRedux.getState().employInfo.gender,
+      mother_name: storeRedux.getState().employInfo.mother_name,
+      pob: storeRedux.getState().employInfo.pob,
+      // dob: formatDate(storeRedux.getState().employInfo.dob),
+      dob: dobAsDayjs,
+      ktp_no: storeRedux.getState().employInfo.ktp_no,
+      card_number: storeRedux.getState().employInfo.card_number,
+      home_address_1: storeRedux.getState().employInfo.home_address_1,
+      home_address_2: storeRedux.getState().employInfo.home_address_2,
+      mobile_no: storeRedux.getState().employInfo.mobile_no,
+      tel_no: storeRedux.getState().employInfo.tel_no,
+      marriage_id: storeRedux.getState().employInfo.marriage_id,
+      bank_account_no: storeRedux.getState().employInfo.bank_account_no,
+      bank_name: storeRedux.getState().employInfo.bank_name,
+      family_card_number: storeRedux.getState().employInfo.family_card_number,
+      safety_insurance_no: storeRedux.getState().employInfo.safety_insurance_no,
+      health_insurance_no: storeRedux.getState().employInfo.health_insurance_no,
+    });
+  }, [optionMirri]);
   return (
     <div className={s.eminfo_container}>
       <div className={s.eminfo_box}>
@@ -112,7 +141,7 @@ export const EmInfo: React.FC<FormProps> = (props) => {
             <Form.Item
               label="Home Address 1"
               labelAlign="left"
-              name="home_add1"
+              name="home_address_1"
               className={s.label_form}
             >
               <InputSearchGlobal width={240} />
@@ -120,7 +149,7 @@ export const EmInfo: React.FC<FormProps> = (props) => {
             <Form.Item
               label="Home Address 2"
               labelAlign="left"
-              name="home_add2"
+              name="home_address_2"
               className={s.label_form}
             >
               <InputSearchGlobal width={240} />
@@ -130,14 +159,14 @@ export const EmInfo: React.FC<FormProps> = (props) => {
             <Form.Item
               label="Mobile No."
               labelAlign="left"
-              name="card_number"
+              name="mobile_no"
               className={s.label_form}
             >
               <InputSearchGlobal width={240} />
             </Form.Item>
             <Form.Item
               label="Tel No."
-              name="tel"
+              name="tel_no"
               labelAlign="left"
               className={s.label_form}
             >
@@ -145,7 +174,7 @@ export const EmInfo: React.FC<FormProps> = (props) => {
             </Form.Item>
             <Form.Item
               label="Marriage Status"
-              name="status"
+              name="marriage_id"
               labelAlign="left"
               className={s.label_form}
             >
@@ -165,7 +194,7 @@ export const EmInfo: React.FC<FormProps> = (props) => {
             </Form.Item>
             <Form.Item
               label="Bank Account No."
-              name="acc_number"
+              name="bank_account_no"
               labelAlign="left"
               className={s.label_form}
             >
@@ -181,7 +210,7 @@ export const EmInfo: React.FC<FormProps> = (props) => {
             </Form.Item>
             <Form.Item
               label="Family Card Number "
-              name="family_number"
+              name="family_card_number"
               labelAlign="left"
               className={s.label_form}
             >
@@ -189,7 +218,7 @@ export const EmInfo: React.FC<FormProps> = (props) => {
             </Form.Item>
             <Form.Item
               label="Safety Insurance No"
-              name="safety"
+              name="safety_insurance_no"
               labelAlign="left"
               className={s.label_form}
             >
@@ -197,7 +226,7 @@ export const EmInfo: React.FC<FormProps> = (props) => {
             </Form.Item>
             <Form.Item
               label="Health Insurance No"
-              name="health"
+              name="health_insurance_no"
               labelAlign="left"
               className={s.label_form}
             >

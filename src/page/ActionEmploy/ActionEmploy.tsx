@@ -6,27 +6,32 @@ import s from "./ActionEmploy.module.scss";
 import { EmInfo } from "../../containers/EmInfo/EmInfo";
 import { TagGlobal } from "../../components/TagGlobal";
 import { ContractInfo } from "../../containers/ContractInfo/ContractInfo";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { EmDetail } from "../../containers/EmDetail/EmDetail";
 import { SalaryWage } from "../../containers/SalaryWage/SalaryWage";
 import { Other } from "../../containers/Other/Other";
-import { createEmploy } from "../../service/api-service";
+import {
+  createEmploy,
+  getEmployee,
+  updateEmployee,
+} from "../../service/api-service";
 // import { convertDateFormatCross } from "../../utils/hooks/changeDate";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+// import { IParamAdd } from "../../interface";
+import { setInfoEmploy, storeRedux } from "../../redux/store-redux";
 // import { convertDateFormatCross } from "../../utils/hooks/changeDate";
 
 export function ActionEmploy() {
   const [typeTab, setTypeTab] = useState("emInfo");
   const navigate = useNavigate();
   const [getField, setGetField] = useState<boolean>(true);
+
+  const params = useParams();
+  const keybtn = params;
+  console.log("aaaaaa", keybtn);
   const handleAdd = async () => {
     setGetField(!getField);
     const param = form.getFieldsValue(true);
-    // if ("contract_start_date" in param) {
-    //   param.contract_start_date = convertDateFormatCross(
-    //     param.contract_start_date
-    //   );
-    // }
     try {
       const res = await createEmploy(param);
       if (res.result === true) {
@@ -39,7 +44,20 @@ export function ActionEmploy() {
       navigate("/employ-info");
     }
   };
-
+  const handleEdit = async () => {
+    const param = form.getFieldsValue(true);
+    try {
+      const res = await updateEmployee(param);
+      if (res.result === true) {
+        message.success("Sửa thành công");
+        navigate("/employ-info");
+      }
+    } catch (err) {
+      message.error("loi");
+      // throw err;
+      navigate("/employ-info");
+    }
+  };
   const [form] = Form.useForm();
   const handleChange = (e: string) => {
     setTypeTab(e);
@@ -93,6 +111,22 @@ export function ActionEmploy() {
       children: <Other form={form} />,
     },
   ];
+  useEffect(() => {
+    getEmployee().then((res) => {
+      // const parts = window.location.href.split("/");
+      // const id = parts[parts.length - 1];
+      // console.log("id la", id);
+      if (res.result === true) {
+        // setDataEmpoyee(res.data);
+        storeRedux.dispatch(setInfoEmploy(res?.data));
+      }
+      // console.log("thanh cong", res.data);
+    });
+  }, []);
+  // useEffect(() => {
+  //   const parts = window.location.href.split("/");
+  //   setKeybtn(parts[parts.length - 1]);
+  // }, []);
   return (
     <div className={s.employInfo_container}>
       <Header />
@@ -105,10 +139,10 @@ export function ActionEmploy() {
               <div className={s.title_name}>Employee Management</div>
               <ButtonGlobal
                 className={s.add_btn}
-                onClick={handleAdd}
+                onClick={keybtn.id ? handleEdit : handleAdd}
                 disabled={false}
               >
-                Add
+                {keybtn.id ? "Save Change" : "Add"}
               </ButtonGlobal>
             </div>
             <div className={s.tab_box}>

@@ -15,6 +15,8 @@ import { ButtonGlobal } from "../../components/ButtonGlobal";
 import { DeleteOutlined, UploadOutlined } from "@ant-design/icons";
 import { IContractInfo } from "../../interface";
 import moment from "moment";
+import { useEffect } from "react";
+import { storeRedux } from "../../redux/store-redux";
 
 interface CustomDatePickerProps {
   value: string | null;
@@ -65,6 +67,12 @@ export const ContractInfo: React.FC<FormProps> = (props) => {
       style={{ height: "46px", width: "250px" }}
     />
   );
+  useEffect(() => {
+    props.form?.setFieldsValue({
+      contract_start_date: storeRedux.getState().employInfo.contract_start_date,
+      type: storeRedux.getState().employInfo.type,
+    });
+  }, []);
   return (
     <div className={s.contract_container}>
       <div className={s.contract_box}>
