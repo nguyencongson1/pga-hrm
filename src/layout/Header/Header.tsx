@@ -3,6 +3,7 @@ import logo from "../../assets/images/Rectangle 4.png";
 import logo1 from "../../assets/images/eng.png";
 import logo2 from "../../assets/images/indo.png";
 import { Avatar, ConfigProvider, Popover, Select } from "antd";
+import { Logout } from "../../containers/Logout/Logout";
 export function Header() {
   const optionLanguage = [
     {
@@ -25,7 +26,14 @@ export function Header() {
     },
   ];
   const title = (
-    <div style={{ display: "flex", flexDirection: "row", gap: "10px" }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "row",
+        gap: "10px",
+        width: "350px",
+      }}
+    >
       <Avatar size="large" style={{ backgroundColor: "rgb(219 223 227)" }}>
         a
       </Avatar>
@@ -55,11 +63,7 @@ export function Header() {
           />
         </ConfigProvider>
         <div>
-          <Popover
-            placement="bottomRight"
-            title={title}
-            content={<div>aaaa</div>}
-          >
+          <Popover placement="bottomRight" title={title} content={<Logout />}>
             <Avatar
               size="large"
               style={{ backgroundColor: "rgb(219 223 227)" }}

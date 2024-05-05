@@ -12,7 +12,8 @@ const publicRoutes=[
     {path:"/" ,element: LoginPage},
     {path:"/change-password", element: ChangePasswordPage},
     {path:"/forgot-password", element: ForgotPasswordPage },
-    {path:"/reset-password", element: ResetPasswordPage}
+    {path:"/reset-password", element: ResetPasswordPage},
+    // {path:"/change-password", element: ForgotPasswordPage },
 ]
 const privateRoutes=[
     {path:"/employ-info", element: EmployInfo},
