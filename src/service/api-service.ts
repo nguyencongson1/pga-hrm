@@ -134,3 +134,21 @@ export const updateEmployee =async(param:IParamAdd)=>{
         throw err
     }
 }
+export const getGrade =async()=>{
+    try{
+        const res= await instance.get("grade",{headers: configAuthen})
+        return res.data
+    }catch(err){
+        console.log("loi");
+        throw err
+    }
+}
+export const getBenefit =async(param:{grade_id:number})=>{
+    try{
+        const res =await instance.get("benefit",{params:param,headers: configAuthen})
+        return res.data
+    }catch(err){
+        console.log("loi");
+        throw err;
+    }
+}

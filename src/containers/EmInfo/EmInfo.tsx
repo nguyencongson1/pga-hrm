@@ -7,13 +7,12 @@ import { IResMirrage } from "../../interface";
 import { useEffect, useState } from "react";
 import { getMarriage } from "../../service/api-service";
 import { storeRedux } from "../../redux/store-redux";
-import dayjs from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 
 export const EmInfo: React.FC<FormProps> = (props) => {
   const [call, setCall] = useState<boolean>(true);
-  // const [init, setInit] = useState<boolean>(true);
+  const [init, setInit] = useState<Dayjs | null>(null);
   const [optionMirri, setOptionMirri] = useState([]);
-  // const [init, setInit] = useState<IParamAdd>({});
   const handleChooseMirriage = () => {
     setCall(!call);
   };
@@ -32,14 +31,22 @@ export const EmInfo: React.FC<FormProps> = (props) => {
   // console.log("aaa", storeRedux.getState().employInfo);
   useEffect(() => {
     const dobValue = storeRedux.getState().employInfo.dob; // Giả sử đây là giá trị dob từ storeRedux
-    const dobAsDayjs = dayjs(dobValue);
+    // const dobAsDayjs = dayjs(dobValue);
+    // const dobAsDayjs = "";
+    if (dobValue === "") {
+      // const dobAsDayjs = dayjs(dobValue);
+      setInit(null);
+    } else {
+      const dobAsDayjs = dayjs(dobValue);
+      setInit(dobAsDayjs);
+    }
     props.form?.setFieldsValue({
       name: storeRedux.getState().employInfo.name,
       gender: storeRedux.getState().employInfo.gender,
       mother_name: storeRedux.getState().employInfo.mother_name,
       pob: storeRedux.getState().employInfo.pob,
       // dob: formatDate(storeRedux.getState().employInfo.dob),
-      dob: dobAsDayjs,
+      dob: init,
       ktp_no: storeRedux.getState().employInfo.ktp_no,
       card_number: storeRedux.getState().employInfo.card_number,
       home_address_1: storeRedux.getState().employInfo.home_address_1,

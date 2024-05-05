@@ -24,13 +24,13 @@ import { setInfoEmploy, storeRedux } from "../../redux/store-redux";
 export function ActionEmploy() {
   const [typeTab, setTypeTab] = useState("emInfo");
   const navigate = useNavigate();
-  const [getField, setGetField] = useState<boolean>(true);
+  // const [getField, setGetField] = useState<boolean>(true);
 
   const params = useParams();
   const keybtn = params;
-  console.log("aaaaaa", keybtn);
   const handleAdd = async () => {
-    setGetField(!getField);
+    // setGetField(!getField);
+
     const param = form.getFieldsValue(true);
     try {
       const res = await createEmploy(param);

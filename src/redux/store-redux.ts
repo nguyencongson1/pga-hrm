@@ -14,8 +14,7 @@ const initialValue ={
       gender: "",
       mother_name:"",
       pob:"",
-      // dob: formatDate(storeRedux.getState().employInfo.dob),
-      dob: undefined,
+      dob: "",
       ktp_no: "",
       card_number: "",
       home_address_1: "",
@@ -31,11 +30,21 @@ const initialValue ={
       contract_start_date:"",
       type:"",
       department:{
-        id:0
+        id:null
       },
       position:{
         id:0
-      }
+      },
+      entitle_ot:0,
+      hidden_on_payroll:"",
+      meal_allowance_paid:0,
+      operational_allowance_paid:"",
+      attendance_allowance_paid:"",
+      basic_salary:0,
+      audit_salary:0,
+      safety_insurance:0,
+      health_insurance:0,
+      meal_allowance:0,
     }
 }
 const reducerRedux=(state =initialValue,action:IAction)=>{
@@ -45,7 +54,9 @@ const reducerRedux=(state =initialValue,action:IAction)=>{
         case "SET_ID_EMPLOYEE":
             return{...state,employId: action.payload }
         case "SET_INFO_EMPLOYEE":
-            return{...state,employInfo:action.payload}    
+            return{...state,employInfo:action.payload}
+        case "RESET_INFO_EMPLOYEE": 
+            return { ...state, employInfo: initialValue.employInfo }        
         default :
             return state;
     }
@@ -67,5 +78,10 @@ export const setInfoEmploy=(payload:IParamAdd)=>{
     return{
         type:"SET_INFO_EMPLOYEE",
         payload
+    }
+}
+export const resetInfoEmploy = () => {
+    return {
+        type: "RESET_INFO_EMPLOYEE"
     }
 }

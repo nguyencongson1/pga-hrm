@@ -85,6 +85,15 @@ export interface IResMirrage{
     create_at?:string;
     updated_at?:string;
 }
+export interface IResGrade{
+    id?:number;
+    name?:string;
+    prefix?:string;
+    company_id:string;
+    created_at:string;
+    updated_at:string;
+    
+}
 export interface IParamForgot{
     email?:string;
     company_id?:string;
