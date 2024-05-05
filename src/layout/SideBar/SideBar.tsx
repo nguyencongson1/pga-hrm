@@ -18,7 +18,12 @@ export default function SideBar() {
           return (
             <div key={index} className={s.content_box}>
               <img src={item.icon} />
-              <div onClick={() => navigate("/employ-info")}>{item.title}</div>
+              <div
+                style={{ cursor: "pointer" }}
+                onClick={() => navigate("/employ-info")}
+              >
+                {item.title}
+              </div>
             </div>
           );
         })}

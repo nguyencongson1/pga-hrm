@@ -40,6 +40,13 @@ export const EmDetail: React.FC<FormProps> = (props) => {
   useEffect(() => {
     props.form?.setFieldsValue({
       department_id: storeRedux.getState().employInfo.department.id,
+      entitle_ot: storeRedux.getState().employInfo.entitle_ot,
+      hidden_on_payroll: storeRedux.getState().employInfo.hidden_on_payroll,
+      meal_allowance_paid: storeRedux.getState().employInfo.meal_allowance_paid,
+      operational_allowance_paid:
+        storeRedux.getState().employInfo.operational_allowance_paid,
+      attendance_allowance_paid:
+        storeRedux.getState().employInfo.attendance_allowance_paid,
     });
   }, []);
   return (

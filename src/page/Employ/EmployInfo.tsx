@@ -12,8 +12,16 @@ import { useEffect, useState } from "react";
 import { deleteEmploy, getEmploy } from "../../service/api-service";
 import { useDebounce } from "../../utils/hooks/useDebounce";
 import { convertDateFormat } from "../../utils/hooks/changeDate";
-import { setIdEmploy, storeRedux } from "../../redux/store-redux";
-
+import {
+  resetInfoEmploy,
+  setIdEmploy,
+  storeRedux,
+} from "../../redux/store-redux";
+interface IPagi {
+  per_page?: number;
+  current_page?: number;
+  total?: number;
+}
 export default function EmployInfo() {
   const [param, setParam] = useState<IParamEmploy>({
     search: "",
@@ -21,6 +29,7 @@ export default function EmployInfo() {
   });
   const [searchTerm, setSearchTerm] = useState("");
   const [data, setData] = useState<IEmployManagement[]>([]);
+  const [pagi, setPagi] = useState<IPagi>({});
   const [idDelete, setIdDelete] = useState<React.Key[]>([]);
   const [isDiable, setIsDiable] = useState<boolean>(true);
   const [refersh, setRefresh] = useState<boolean>(false);
@@ -157,17 +166,20 @@ export default function EmployInfo() {
   //   },
   // ];
   useEffect(() => {
-    setParam((prev) => ({ ...prev, search: debouncedSearchTerm }));
+    setParam((prev) => ({ ...prev, search: debouncedSearchTerm, page: 0 }));
   }, [debouncedSearchTerm]);
 
   useEffect(() => {
     getEmploy(param).then((res) => {
       if (res.result === true) {
         setData(res.data.data);
+        setPagi(res.data);
+        console.log("data", res.data);
       }
     });
   }, [param, refersh]);
   const handleAdd = () => {
+    storeRedux.dispatch(resetInfoEmploy());
     navigate("/employ-action");
   };
   const rowSelection = {
@@ -191,6 +203,14 @@ export default function EmployInfo() {
     storeRedux.dispatch(setIdEmploy(id));
     navigate(`/employ-action/${id}`);
     // console.log("redux", storeRedux.getState().employId);
+  };
+  const pagination = {
+    current: pagi?.current_page,
+    pageSize: pagi?.per_page,
+    // pageSizeOptions: ["50", "100", "150"],
+    showSizeChanger: true,
+    showQuickJumper: false,
+    total: pagi?.total,
   };
   return (
     <div className={s.employInfo_container}>
@@ -252,6 +272,10 @@ export default function EmployInfo() {
                         handleCLickDetail(record?.id);
                       },
                     })}
+                    pagination={pagination}
+                    onChange={(pagination) => {
+                      setParam({ page: pagination.current });
+                    }}
                   />
                 </ConfigProvider>
               </div>

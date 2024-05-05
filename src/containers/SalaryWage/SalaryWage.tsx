@@ -1,9 +1,19 @@
 import { Form, FormProps } from "antd";
 import s from "./SalaryWage.module.scss";
 import { InputSearchGlobal } from "../../components/InputGlobal";
-import React from "react";
+import React, { useEffect } from "react";
+import { storeRedux } from "../../redux/store-redux";
 
 export const SalaryWage: React.FC<FormProps> = (props) => {
+  useEffect(() => {
+    props.form?.setFieldsValue({
+      basic_salary: storeRedux.getState().employInfo.basic_salary,
+      audit_salary: storeRedux.getState().employInfo.audit_salary,
+      safety_insurance: storeRedux.getState().employInfo.safety_insurance,
+      health_insurance: storeRedux.getState().employInfo.health_insurance,
+      meal_allowance: storeRedux.getState().employInfo.meal_allowance,
+    });
+  }, []);
   return (
     <div className={s.salary_container}>
       <div className={s.salary_box}>
@@ -41,7 +51,7 @@ export const SalaryWage: React.FC<FormProps> = (props) => {
           <Form.Item
             label="Safety Insurance Amount"
             colon={false}
-            name="safety_amount"
+            name="safety_insurance"
             className={s.label_detail}
             labelAlign="left"
           >
@@ -50,7 +60,7 @@ export const SalaryWage: React.FC<FormProps> = (props) => {
           <Form.Item
             label="Health Insurance Amount"
             colon={false}
-            name="health_amount"
+            name="health_insurance"
             labelAlign="left"
             className={s.label_detail}
           >

@@ -15,9 +15,17 @@ import {
   DownloadOutlined,
   UploadOutlined,
 } from "@ant-design/icons";
-import { IDocumentInfo } from "../../interface";
+import { IDocumentInfo, IResGrade } from "../../interface";
+import { useEffect, useState } from "react";
+import { getBenefit, getGrade } from "../../service/api-service";
 
 export const Other: React.FC<FormProps> = (props) => {
+  const [optionGrade, setOptionGrade] = useState([]);
+  const [optionBenefit, setOptionBenefit] = useState([]);
+  const [idSelect, setIdSelect] = useState({
+    grade_id: 1,
+  });
+  const [value, setValue] = useState(undefined);
   const column: TableColumnsType<IDocumentInfo> = [
     {
       title: "No",
@@ -56,7 +64,35 @@ export const Other: React.FC<FormProps> = (props) => {
       create_at: "22/2/2022",
     },
   ];
-
+  useEffect(() => {
+    getGrade().then((res) => {
+      if (res.result === true) {
+        const newGradeList = res.data.map((item: IResGrade) => ({
+          label: item.name,
+          value: item.id,
+        }));
+        setOptionGrade(newGradeList);
+      }
+    });
+  }, []);
+  useEffect(() => {
+    getBenefit(idSelect).then((res) => {
+      if (res.result === true) {
+        const newBenefitList = res.data.map((item: IResGrade) => ({
+          label: item.name,
+          value: item.id,
+        }));
+        setOptionBenefit(newBenefitList);
+        setValue(undefined);
+      }
+    });
+  }, [idSelect]);
+  const handleChangeGrade = () => {
+    const newParam = props.form?.getFieldValue("grade_id");
+    setIdSelect({ grade_id: newParam });
+    setValue(undefined);
+    // console.log("dddddddd", idSelect);
+  };
   return (
     <div className={s.other_container}>
       <div className={s.other_box}>
@@ -75,12 +111,15 @@ export const Other: React.FC<FormProps> = (props) => {
           <Form.Item
             label="Grade"
             colon={false}
-            name="grade"
+            name="grade_id"
             labelAlign="left"
-            required
             className={s.label_detail}
           >
-            <SelectGlobal width={250} />
+            <SelectGlobal
+              width={350}
+              options={optionGrade}
+              onChange={handleChangeGrade}
+            />
           </Form.Item>
           <Form.Item
             label="Benefit"
@@ -88,9 +127,15 @@ export const Other: React.FC<FormProps> = (props) => {
             name="benefit"
             className={s.label_detail}
             labelAlign="left"
-            required
           >
-            <SelectGlobal width={250} />
+            <SelectGlobal
+              width={350}
+              style={{ maxWidth: "1000px" }}
+              options={optionBenefit}
+              value={value}
+              mode="multiple"
+              maxTagCount={1}
+            />
           </Form.Item>
           <Form.Item
             label="Remark"
@@ -98,7 +143,6 @@ export const Other: React.FC<FormProps> = (props) => {
             name="remark"
             className={s.label_detail}
             labelAlign="left"
-            required
           >
             <TextArea />
           </Form.Item>
@@ -107,10 +151,9 @@ export const Other: React.FC<FormProps> = (props) => {
             colon={false}
             name="user_account"
             labelAlign="left"
-            required
             className={s.label_detail}
           >
-            <SelectGlobal width={250} />
+            <SelectGlobal width={350} disabled />
           </Form.Item>
         </Form>
         <div className={s.last_map}>

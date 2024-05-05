@@ -6,7 +6,7 @@ import { IDeleteId, ILoginform, IParamAdd, IParamEmploy, IParamForgot } from "..
 const instance = axios.create({
     baseURL: API_URL
 });
-const configAuthen={Authorization:`Bearer ${ localStorage.getItem("token")}` }
+const configAuthen={Authorization:`Bearer ${ localStorage.getItem("token")}` }  
 export const login = async (param: ILoginform ) => {
     try {
         const res = await instance.post("/login", param);
@@ -112,6 +112,24 @@ export const resetPassword =async(param:IParamForgot)=>{
         throw err;
     }
 }
+export const changePassword=async(param:IParamForgot)=>{
+    try{
+        const res =await instance.post("change-password",param,{headers:configAuthen})
+        return res.data;
+    }catch(err){
+        console.log("loi");
+        throw err
+    }
+}
+export const logOut=async()=>{
+    try{
+        const res= await instance.post("logout",null,{headers:configAuthen})
+        return res.data
+    }catch(err){
+        console.log("loi");
+        throw err
+    }
+}
 export const getEmployee =async()=>{
     try{
         const parts = window.location.href.split("/");
@@ -132,5 +150,23 @@ export const updateEmployee =async(param:IParamAdd)=>{
     }catch(err){
         console.log("loi");
         throw err
+    }
+}
+export const getGrade =async()=>{
+    try{
+        const res= await instance.get("grade",{headers: configAuthen})
+        return res.data
+    }catch(err){
+        console.log("loi");
+        throw err
+    }
+}
+export const getBenefit =async(param:{grade_id:number})=>{
+    try{
+        const res =await instance.get("benefit",{params:param,headers: configAuthen})
+        return res.data
+    }catch(err){
+        console.log("loi");
+        throw err;
     }
 }
