@@ -28,13 +28,9 @@ export const EmInfo: React.FC<FormProps> = (props) => {
       }
     });
   }, [call]);
-  // console.log("aaa", storeRedux.getState().employInfo);
   useEffect(() => {
     const dobValue = storeRedux.getState().employInfo.dob; // Giả sử đây là giá trị dob từ storeRedux
-    // const dobAsDayjs = dayjs(dobValue);
-    // const dobAsDayjs = "";
     if (dobValue === "") {
-      // const dobAsDayjs = dayjs(dobValue);
       setInit(null);
     } else {
       const dobAsDayjs = dayjs(dobValue);
@@ -45,7 +41,6 @@ export const EmInfo: React.FC<FormProps> = (props) => {
       gender: storeRedux.getState().employInfo.gender,
       mother_name: storeRedux.getState().employInfo.mother_name,
       pob: storeRedux.getState().employInfo.pob,
-      // dob: formatDate(storeRedux.getState().employInfo.dob),
       dob: init,
       ktp_no: storeRedux.getState().employInfo.ktp_no,
       card_number: storeRedux.getState().employInfo.card_number,
@@ -78,6 +73,12 @@ export const EmInfo: React.FC<FormProps> = (props) => {
               labelAlign="left"
               required
               className={s.label_form}
+              rules={[
+                {
+                  required: true,
+                  message: "Please enter your Name!",
+                },
+              ]}
             >
               <InputSearchGlobal width={240} />
             </Form.Item>
@@ -87,6 +88,12 @@ export const EmInfo: React.FC<FormProps> = (props) => {
               labelAlign="left"
               required
               className={s.label_form}
+              rules={[
+                {
+                  required: true,
+                  message: "Please enter your Gender!",
+                },
+              ]}
             >
               <SelectGlobal
                 width={240}
@@ -117,6 +124,12 @@ export const EmInfo: React.FC<FormProps> = (props) => {
               name="dob"
               className={s.label_form}
               required
+              rules={[
+                {
+                  required: true,
+                  message: "Please enter your date of birth!",
+                },
+              ]}
             >
               <DatePicker style={{ height: "46px", width: "240px" }} />
             </Form.Item>
@@ -134,6 +147,12 @@ export const EmInfo: React.FC<FormProps> = (props) => {
               name="ktp_no"
               required
               className={s.label_form}
+              rules={[
+                {
+                  required: true,
+                  message: "Please enter your KTP NO!",
+                },
+              ]}
             >
               <InputSearchGlobal width={240} />
             </Form.Item>

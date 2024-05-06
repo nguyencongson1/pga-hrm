@@ -45,6 +45,9 @@ const initialValue ={
       safety_insurance:0,
       health_insurance:0,
       meal_allowance:0,
+      grade_id:null,
+      benefit:[],
+      remark:"",
     }
 }
 const reducerRedux=(state =initialValue,action:IAction)=>{

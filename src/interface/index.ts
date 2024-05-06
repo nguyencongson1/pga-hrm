@@ -48,7 +48,7 @@ export interface IContractInfo {
     sign_date?:string;
 }
 export interface IDocumentInfo{
-    no?:number;
+    id?:number;
     document_name?:string;
     create_at?:string;
 }

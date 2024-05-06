@@ -4,7 +4,7 @@ import { Header } from "../../layout/Header/Header";
 import SideBar from "../../layout/SideBar/SideBar";
 import s from "./EmployInfo.module.scss";
 import { ButtonGlobal } from "../../components/ButtonGlobal";
-import { ConfigProvider, Table, TableColumnsType, message } from "antd";
+import { ConfigProvider, Modal, Table, TableColumnsType, message } from "antd";
 import { IEmployManagement, IParamEmploy } from "../../interface";
 import { useNavigate } from "react-router-dom";
 import plusImg from "../../assets/images/file-plus.png";
@@ -33,6 +33,7 @@ export default function EmployInfo() {
   const [idDelete, setIdDelete] = useState<React.Key[]>([]);
   const [isDiable, setIsDiable] = useState<boolean>(true);
   const [refersh, setRefresh] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const navigate = useNavigate();
   const debouncedSearchTerm = useDebounce(searchTerm, 1000);
   const columns: TableColumnsType<IEmployManagement> = [
@@ -127,44 +128,7 @@ export default function EmployInfo() {
       key: "old_staff_id",
     },
   ];
-  // const data: IEmployManagement[] = [
-  //   {
-  //     id: 1,
-  //     gender: "qqqq",
-  //     nik: "A1534",
-  //     name: "Alex",
-  //     card_number: "123456",
-  //     acc_number: "123123123",
-  //     card_no: "_",
-  //     status: "K2",
-  //     mother_name: "Sunary",
-  //     place_birthday: "aasda",
-  //   },
-  //   {
-  //     id: 2,
-  //     gender: "qqqqqq",
-  //     nik: "A15a34",
-  //     name: "Aleax",
-  //     card_number: "1231456",
-  //     acc_number: "1231231123",
-  //     card_no: "_",
-  //     status: "Kq2",
-  //     mother_name: "Sunaryqq",
-  //     place_birthday: "aasdqqqa",
-  //   },
-  //   {
-  //     id: 3,
-  //     gender: "qqqqa",
-  //     nik: "A15a34",
-  //     name: "Aleax",
-  //     card_number: "1234a56",
-  //     acc_number: "12312a3123",
-  //     card_no: "a_",
-  //     status: "Ka2",
-  //     mother_name: "Sunaary",
-  //     place_birthday: "aasada",
-  //   },
-  // ];
+
   useEffect(() => {
     setParam((prev) => ({ ...prev, search: debouncedSearchTerm, page: 0 }));
   }, [debouncedSearchTerm]);
@@ -174,7 +138,6 @@ export default function EmployInfo() {
       if (res.result === true) {
         setData(res.data.data);
         setPagi(res.data);
-        console.log("data", res.data);
       }
     });
   }, [param, refersh]);
@@ -183,31 +146,33 @@ export default function EmployInfo() {
     navigate("/employ-action");
   };
   const rowSelection = {
-    onChange: (
-      selectedRowKeys: React.Key[]
-      // selectedRows: IEmployManagement[]
-    ) => {
+    onChange: (selectedRowKeys: React.Key[]) => {
       setIdDelete(selectedRowKeys);
       selectedRowKeys.length === 0 ? setIsDiable(true) : setIsDiable(false);
     },
   };
   const handleDelete = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
     deleteEmploy({ record_ids: idDelete }).then((res) => {
       if (res.result === true) {
-        message.success("xoas thanhf cong");
+        message.success("Delete complete");
         setRefresh(!refersh);
+        setIsModalOpen(false);
       }
     });
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
   };
   const handleCLickDetail = (id: number | undefined) => {
     storeRedux.dispatch(setIdEmploy(id));
     navigate(`/employ-action/${id}`);
-    // console.log("redux", storeRedux.getState().employId);
   };
   const pagination = {
     current: pagi?.current_page,
     pageSize: pagi?.per_page,
-    // pageSizeOptions: ["50", "100", "150"],
     showSizeChanger: true,
     showQuickJumper: false,
     total: pagi?.total,
@@ -277,6 +242,28 @@ export default function EmployInfo() {
                       setParam({ page: pagination.current });
                     }}
                   />
+                </ConfigProvider>
+                <ConfigProvider
+                  theme={{
+                    components: {
+                      Modal: {
+                        titleFontSize: 26,
+                      },
+                    },
+                  }}
+                >
+                  <Modal
+                    title="Delete"
+                    open={isModalOpen}
+                    onOk={handleOk}
+                    onCancel={handleCancel}
+                    cancelText="NO"
+                    okText="YES"
+                  >
+                    <div style={{ fontSize: "20px" }}>
+                      Are you sure you want to delete?
+                    </div>
+                  </Modal>
                 </ConfigProvider>
               </div>
             </div>

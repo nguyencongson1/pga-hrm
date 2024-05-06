@@ -14,6 +14,18 @@ function TagGlobal({ type, label, ...props }: ITagGloabalProps) {
         defaultColor: "rgb(251, 253, 255)",
       };
       break;
+    case "deni":
+      tagTheme = {
+        defaultBg: "rgb(255, 239, 239)",
+        defaultColor: "rgb(229, 72, 77)",
+      };
+      break;
+    case "deni_choose":
+      tagTheme = {
+        defaultBg: "rgb(229, 72, 77)",
+        defaultColor: "#fff",
+      };
+      break;
     default:
       tagTheme = {
         defaultBg: "rgb(237, 246, 255)",

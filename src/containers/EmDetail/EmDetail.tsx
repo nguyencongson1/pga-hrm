@@ -118,14 +118,12 @@ export const EmDetail: React.FC<FormProps> = (props) => {
               name="meal_allowance_paid"
               className={s.checkbox_item}
               valuePropName="checked"
-              // getValueFromEvent={(e) => (e.target.checked ? 1 : 0)}
             >
               <Checkbox>Meal Allowance Paid </Checkbox>
             </Form.Item>
             <Form.Item
               name="hidden_on_payroll"
               className={s.checkbox_item}
-              // valuePropName="checked"
               getValueFromEvent={(e) => (e.target.checked ? "1" : "0")}
             >
               <Checkbox>Hidden on payroll </Checkbox>
@@ -133,8 +131,6 @@ export const EmDetail: React.FC<FormProps> = (props) => {
             <Form.Item
               name="operational_allowance_paid"
               className={s.checkbox_item}
-              // valuePropName="checked"
-              // getValueFromEvent={(e) => (e.target.checked ? true : false)}
             >
               <Checkbox
                 disabled
@@ -147,8 +143,6 @@ export const EmDetail: React.FC<FormProps> = (props) => {
             <Form.Item
               name="attendance_allowance_paid"
               className={s.checkbox_item}
-              // valuePropName="checked"
-              // getValueFromEvent={(e) => (e.target.checked ? true : false)}
             >
               <Checkbox
                 name="attendance_allowance_paid"
