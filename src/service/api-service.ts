@@ -1,7 +1,6 @@
 import axios from "axios";
 import { API_URL } from "../config/api-config";
 import { IDeleteId, ILoginform, IParamAdd, IParamEmploy, IParamForgot } from "../interface";
-// import { convertDateFormatCross } from "../utils/hooks/changeDate";
 
 const instance = axios.create({
     baseURL: API_URL

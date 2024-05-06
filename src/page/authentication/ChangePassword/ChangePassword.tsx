@@ -1,6 +1,5 @@
 import { InputSearchGlobal } from "../../../components/InputGlobal";
 import s from "./ChangePassword.module.scss";
-// import logo from "../../../assets/images/Rectangle 4.png";
 import { Button, Form, message } from "antd";
 import { IParamForgot } from "../../../interface";
 import { changePassword } from "../../../service/api-service";
@@ -21,7 +20,6 @@ export default function ChangePasswordPage() {
         <div className={s.login_container} style={{ width: "85%" }}>
           <div className={s.login_form}>
             <div className={s.title_box}>
-              {/* <img src={logo} alt="anh logo" /> */}
               <div className={s.title_system}>HR Management System</div>
             </div>
             <Form
@@ -39,6 +37,12 @@ export default function ChangePasswordPage() {
                 style={{ width: 300 }}
                 colon={true}
                 className={s.form_item}
+                rules={[
+                  {
+                    required: true,
+                    message: "Please enter your new password!",
+                  },
+                ]}
               >
                 <InputSearchGlobal width={300} />
               </Form.Item>
@@ -48,6 +52,24 @@ export default function ChangePasswordPage() {
                 style={{ width: 300 }}
                 colon={true}
                 className={s.form_item}
+                rules={[
+                  {
+                    required: true,
+                    message: "Please enter your confirm password!",
+                  },
+                  ({ getFieldValue }) => ({
+                    validator(_, value) {
+                      if (!value || getFieldValue("password") === value) {
+                        return Promise.resolve();
+                      }
+                      return Promise.reject(
+                        new Error(
+                          "The two passwords that you entered do not match!"
+                        )
+                      );
+                    },
+                  }),
+                ]}
               >
                 <InputSearchGlobal width={300} />
               </Form.Item>

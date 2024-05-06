@@ -18,6 +18,7 @@ import {
 import { IDocumentInfo, IResGrade } from "../../interface";
 import { useEffect, useState } from "react";
 import { getBenefit, getGrade } from "../../service/api-service";
+import { storeRedux } from "../../redux/store-redux";
 
 export const Other: React.FC<FormProps> = (props) => {
   const [optionGrade, setOptionGrade] = useState([]);
@@ -31,7 +32,7 @@ export const Other: React.FC<FormProps> = (props) => {
       title: "No",
       dataIndex: "no",
       width: 60,
-      render: (_, record) => <div>{record.no}</div>,
+      render: (_, record) => <div>{record.id}</div>,
     },
     {
       title: "Document Name",
@@ -59,7 +60,7 @@ export const Other: React.FC<FormProps> = (props) => {
   ];
   const data: IDocumentInfo[] = [
     {
-      no: 1,
+      id: 1,
       document_name: "son",
       create_at: "22/2/2022",
     },
@@ -91,8 +92,14 @@ export const Other: React.FC<FormProps> = (props) => {
     const newParam = props.form?.getFieldValue("grade_id");
     setIdSelect({ grade_id: newParam });
     setValue(undefined);
-    // console.log("dddddddd", idSelect);
   };
+  useEffect(() => {
+    props.form?.setFieldsValue({
+      grade_id: storeRedux.getState().employInfo.grade_id,
+      benefit: storeRedux.getState().employInfo.benefit,
+      remark: storeRedux.getState().employInfo.remark,
+    });
+  }, []);
   return (
     <div className={s.other_container}>
       <div className={s.other_box}>
@@ -144,7 +151,7 @@ export const Other: React.FC<FormProps> = (props) => {
             className={s.label_detail}
             labelAlign="left"
           >
-            <TextArea />
+            <TextArea style={{ width: "350px" }} />
           </Form.Item>
           <Form.Item
             label="HRM User Account"
@@ -175,7 +182,13 @@ export const Other: React.FC<FormProps> = (props) => {
               },
             }}
           >
-            <Table columns={column} dataSource={data} />
+            <Table
+              columns={column}
+              dataSource={data?.map((item) => ({
+                ...item,
+                key: item?.id,
+              }))}
+            />
           </ConfigProvider>
         </div>
       </div>

@@ -15,22 +15,51 @@ import {
   getEmployee,
   updateEmployee,
 } from "../../service/api-service";
-// import { convertDateFormatCross } from "../../utils/hooks/changeDate";
 import { useNavigate, useParams } from "react-router-dom";
-// import { IParamAdd } from "../../interface";
 import { setInfoEmploy, storeRedux } from "../../redux/store-redux";
-// import { convertDateFormatCross } from "../../utils/hooks/changeDate";
 
 export function ActionEmploy() {
   const [typeTab, setTypeTab] = useState("emInfo");
+  const [checked, setChecked] = useState<boolean>(true);
+  const [validateEmInfo, setValidateEmInfo] = useState<boolean>(true);
+  const [validateContractInfo, setValidateContractInfo] =
+    useState<boolean>(true);
+  const [refresh, setRefresh] = useState<boolean>(true);
   const navigate = useNavigate();
-  // const [getField, setGetField] = useState<boolean>(true);
-
   const params = useParams();
   const keybtn = params;
+  const [form] = Form.useForm();
+  useEffect(() => {
+    const param_btn = form.getFieldsValue(true);
+    if (
+      param_btn.name !== "" &&
+      param_btn.gender !== "" &&
+      param_btn.dob !== "" &&
+      param_btn.ktp_no !== "" &&
+      param_btn.contract_start_date !== "" &&
+      param_btn.type !== ""
+    ) {
+      setChecked(false);
+    } else {
+      setChecked(true);
+    }
+    if (
+      param_btn.name !== "" &&
+      param_btn.gender !== "" &&
+      param_btn.dob !== "" &&
+      param_btn.ktp_no !== ""
+    ) {
+      setValidateEmInfo(false);
+    } else {
+      setValidateEmInfo(true);
+    }
+    if (param_btn.contract_start_date && param_btn.type) {
+      setValidateContractInfo(false);
+    } else {
+      setValidateContractInfo(true);
+    }
+  }, [typeTab, form, refresh]);
   const handleAdd = async () => {
-    // setGetField(!getField);
-
     const param = form.getFieldsValue(true);
     try {
       const res = await createEmploy(param);
@@ -40,7 +69,6 @@ export function ActionEmploy() {
       }
     } catch (err) {
       message.error("loi");
-      // throw err;
       navigate("/employ-info");
     }
   };
@@ -54,20 +82,29 @@ export function ActionEmploy() {
       }
     } catch (err) {
       message.error("loi");
-      // throw err;
       navigate("/employ-info");
     }
   };
-  const [form] = Form.useForm();
+
   const handleChange = (e: string) => {
     setTypeTab(e);
+    setRefresh(!refresh);
   };
   const tabItem = [
     {
       label: (
         <TagGlobal
           label="Employee Infomation"
-          type={typeTab == "emInfo" ? "active" : ""}
+          type={(() => {
+            if (typeTab === "emInfo" && validateEmInfo === false) {
+              return "active";
+            } else if (typeTab === "emInfo" && validateEmInfo === true) {
+              return "deni_choose";
+            } else if (validateEmInfo === true) {
+              return "deni";
+            }
+            return "";
+          })()}
         />
       ),
       key: "emInfo",
@@ -77,7 +114,19 @@ export function ActionEmploy() {
       label: (
         <TagGlobal
           label=" Contract Infomation"
-          type={typeTab == "contractInfo" ? "active" : ""}
+          type={(() => {
+            if (typeTab === "contractInfo" && validateContractInfo === false) {
+              return "active";
+            } else if (
+              typeTab === "contractInfo" &&
+              validateContractInfo === true
+            ) {
+              return "deni_choose";
+            } else if (validateContractInfo === true) {
+              return "deni";
+            }
+            return "";
+          })()}
         />
       ),
       key: "contractInfo",
@@ -112,21 +161,14 @@ export function ActionEmploy() {
     },
   ];
   useEffect(() => {
-    getEmployee().then((res) => {
-      // const parts = window.location.href.split("/");
-      // const id = parts[parts.length - 1];
-      // console.log("id la", id);
-      if (res.result === true) {
-        // setDataEmpoyee(res.data);
-        storeRedux.dispatch(setInfoEmploy(res?.data));
-      }
-      // console.log("thanh cong", res.data);
-    });
+    if (keybtn.id) {
+      getEmployee().then((res) => {
+        if (res.result === true) {
+          storeRedux.dispatch(setInfoEmploy(res?.data));
+        }
+      });
+    }
   }, []);
-  // useEffect(() => {
-  //   const parts = window.location.href.split("/");
-  //   setKeybtn(parts[parts.length - 1]);
-  // }, []);
   return (
     <div className={s.employInfo_container}>
       <Header />
@@ -140,7 +182,7 @@ export function ActionEmploy() {
               <ButtonGlobal
                 className={s.add_btn}
                 onClick={keybtn.id ? handleEdit : handleAdd}
-                disabled={false}
+                disabled={checked}
               >
                 {keybtn.id ? "Save Change" : "Add"}
               </ButtonGlobal>
@@ -159,11 +201,7 @@ export function ActionEmploy() {
                   },
                 }}
               >
-                <Tabs
-                  items={tabItem}
-                  onTabClick={handleChange}
-                  // defaultActiveKey="other"
-                />
+                <Tabs items={tabItem} onTabClick={handleChange} />
               </ConfigProvider>
             </div>
           </div>

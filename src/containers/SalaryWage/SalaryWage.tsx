@@ -28,7 +28,6 @@ export const SalaryWage: React.FC<FormProps> = (props) => {
           name="salary_form"
           labelCol={{ span: 6 }}
           className={s.salary_form}
-          // onFinish={handleFinish}
         >
           <Form.Item
             label="Basic Salary"
@@ -36,6 +35,18 @@ export const SalaryWage: React.FC<FormProps> = (props) => {
             name="basic_salary"
             labelAlign="left"
             className={s.label_detail}
+            rules={[
+              {
+                validator: (_, value) => {
+                  if (value >= 0) {
+                    return Promise.resolve();
+                  }
+                  return Promise.reject(
+                    new Error("Please input value min is 0!")
+                  );
+                },
+              },
+            ]}
           >
             <InputSearchGlobal width={250} type="number" prefix="Rp" />
           </Form.Item>
@@ -45,6 +56,18 @@ export const SalaryWage: React.FC<FormProps> = (props) => {
             name="audit_salary"
             className={s.label_detail}
             labelAlign="left"
+            rules={[
+              {
+                validator: (_, value) => {
+                  if (value >= 0) {
+                    return Promise.resolve();
+                  }
+                  return Promise.reject(
+                    new Error("Please input value min is 0!")
+                  );
+                },
+              },
+            ]}
           >
             <InputSearchGlobal width={250} type="number" prefix="Rp" />
           </Form.Item>
@@ -54,6 +77,18 @@ export const SalaryWage: React.FC<FormProps> = (props) => {
             name="safety_insurance"
             className={s.label_detail}
             labelAlign="left"
+            rules={[
+              {
+                validator: (_, value) => {
+                  if (value >= 0) {
+                    return Promise.resolve();
+                  }
+                  return Promise.reject(
+                    new Error("Please input value min is 0!")
+                  );
+                },
+              },
+            ]}
           >
             <InputSearchGlobal width={250} type="number" prefix="Rp" />
           </Form.Item>
@@ -63,6 +98,18 @@ export const SalaryWage: React.FC<FormProps> = (props) => {
             name="health_insurance"
             labelAlign="left"
             className={s.label_detail}
+            rules={[
+              {
+                validator: (_, value) => {
+                  if (value >= 0) {
+                    return Promise.resolve();
+                  }
+                  return Promise.reject(
+                    new Error("Please input value min is 0!")
+                  );
+                },
+              },
+            ]}
           >
             <InputSearchGlobal width={250} type="number" prefix="Rp" />
           </Form.Item>
@@ -72,6 +119,18 @@ export const SalaryWage: React.FC<FormProps> = (props) => {
             name="meal_allowance"
             labelAlign="left"
             className={s.label_detail}
+            rules={[
+              {
+                validator: (_, value) => {
+                  if (value >= 0) {
+                    return Promise.resolve();
+                  }
+                  return Promise.reject(
+                    new Error("Please input value min is 0!")
+                  );
+                },
+              },
+            ]}
           >
             <InputSearchGlobal width={250} type="number" prefix="Rp" />
           </Form.Item>

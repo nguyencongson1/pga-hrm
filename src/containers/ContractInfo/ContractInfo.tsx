@@ -94,6 +94,12 @@ export const ContractInfo: React.FC<FormProps> = (props) => {
             name="contract_start_date"
             labelAlign="left"
             className={s.label_contract}
+            rules={[
+              {
+                required: true,
+                message: "Please enter start date!",
+              },
+            ]}
           >
             <CustomDatePicker value={null} onChange={() => {}} />
           </Form.Item>
@@ -103,6 +109,12 @@ export const ContractInfo: React.FC<FormProps> = (props) => {
             name="type"
             className={s.label_contract}
             labelAlign="left"
+            rules={[
+              {
+                required: true,
+                message: "Please enter your type!",
+              },
+            ]}
           >
             <SelectGlobal
               width={250}

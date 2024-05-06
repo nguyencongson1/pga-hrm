@@ -7,7 +7,6 @@ import { IParamForgot } from "../../../interface";
 import { useNavigate } from "react-router-dom";
 export default function ForgotPasswordPage() {
   const onFinish = (value: IParamForgot) => {
-    console.log("object");
     forgotPassword(value).then((res) => {
       if (res.result === true) {
         navigate("/");
@@ -15,7 +14,7 @@ export default function ForgotPasswordPage() {
     });
   };
   const handleBack = () => {
-    console.log("object");
+    navigate("/");
   };
   const navigate = useNavigate();
   return (
